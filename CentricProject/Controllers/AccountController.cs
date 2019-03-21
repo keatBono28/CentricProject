@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CentricProject.Models;
 
+
 namespace CentricProject.Controllers
 {
     [Authorize]
@@ -423,6 +424,20 @@ namespace CentricProject.Controllers
             base.Dispose(disposing);
         }
 
+        [ChildActionOnly]
+        public PartialViewResult GetProfileName()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var context = new ApplicationDbContext();
+                var id = User.Identity.GetUserId();
+                var user = context.Profiles.SingleOrDefault(u => u.prefferedName == id );
+                return PartialView(user);
+            }
+            return PartialView();
+        }
+        
+        
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

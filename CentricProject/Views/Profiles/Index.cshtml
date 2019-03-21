@@ -2,14 +2,14 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Profile</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-
 <table class="table">
     <tr>
         <th>
@@ -38,7 +38,7 @@
         </th>
         <th></th>
     </tr>
-    
+
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -72,4 +72,5 @@
         </td>
     </tr>
 }
+
 </table>

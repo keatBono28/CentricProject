@@ -6,14 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using CentricProject.DAL;
 using CentricProject.Models;
 
 namespace CentricProject.Controllers
 {
     public class ProfilesController : Controller
     {
-        private CentricContext db = new CentricContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Profiles
         public ActionResult Index()
@@ -22,7 +21,7 @@ namespace CentricProject.Controllers
         }
 
         // GET: Profiles/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -51,7 +50,6 @@ namespace CentricProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                profile.id = Guid.NewGuid();
                 db.Profiles.Add(profile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -61,7 +59,7 @@ namespace CentricProject.Controllers
         }
 
         // GET: Profiles/Edit/5
-        public ActionResult Edit(Guid? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -92,7 +90,7 @@ namespace CentricProject.Controllers
         }
 
         // GET: Profiles/Delete/5
-        public ActionResult Delete(Guid? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -109,7 +107,7 @@ namespace CentricProject.Controllers
         // POST: Profiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Profile profile = db.Profiles.Find(id);
             db.Profiles.Remove(profile);

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CentricProject.Models
 {
     public class Profile
     {
-        // Using guid for a unique ID
-        public System.Guid id { get; set; }
+        
+        public int id { get; set; }
+        public virtual  ApplicationUser ApplicationUser { get; set; }
 
         // Data Annotations for Employee First Name
         [Display(Name = "First Name")]

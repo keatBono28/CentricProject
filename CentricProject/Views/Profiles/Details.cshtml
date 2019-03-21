@@ -1,8 +1,11 @@
 ﻿@model CentricProject.Models.Profile
 
 @{
-    ViewBag.Title = "Detials";
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>Details</h2>
 
 <div>
     <h4>Profile</h4>
@@ -11,67 +14,67 @@
         <dt>
             @Html.DisplayNameFor(model => model.firstName)
         </dt>
-    
+
         <dd>
             @Html.DisplayFor(model => model.firstName)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.lastName)
         </dt>
-    
+
         <dd>
             @Html.DisplayFor(model => model.lastName)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.prefferedName)
         </dt>
-    
+
         <dd>
             @Html.DisplayFor(model => model.prefferedName)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.phoneNumber)
         </dt>
-    
+
         <dd>
             @Html.DisplayFor(model => model.phoneNumber)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.email)
         </dt>
-    
+
         <dd>
             @Html.DisplayFor(model => model.email)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.hireDate)
         </dt>
-    
+
         <dd>
             @Html.DisplayFor(model => model.hireDate)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.businessUnit)
         </dt>
-    
+
         <dd>
             @Html.DisplayFor(model => model.businessUnit)
         </dd>
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.position)
         </dt>
-    
+
         <dd>
             @Html.DisplayFor(model => model.position)
         </dd>
-    
+
     </dl>
 </div>
 <p>

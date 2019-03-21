@@ -10,12 +10,13 @@ namespace CentricProject.DAL
 {
     public class CentricContext : DbContext
     {
-        public CentricContext() : base("name=DatabaseConnection")
+        public CentricContext() : base("name=DefaultConnection")
         {
             // Migration point will go here
         }
 
         public DbSet<Profile>Profiles { get; set; }
-		
+        
+
     }
 }
