@@ -16,5 +16,6 @@ namespace CentricProject.DAL
         }
 
         public DbSet<Profile>Profiles { get; set; }
+		
     }
 }
