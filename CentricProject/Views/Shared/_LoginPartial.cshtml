@@ -1,35 +1,41 @@
 ﻿@using Microsoft.AspNet.Identity
 @using CentricProject.Models
+@using Microsoft.AspNet.Identity.EntityFramework;
 @if (Request.IsAuthenticated)
 {
+    
+    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
+    string prefName = currentUser.ProfileDetails.prefferedName;
+    
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li class="btn-group nav">
-            <button type="button" class="btn navbar-btn" style="background-color: white;">
-                @if (Html.Action("GetProfileName", "Account").ToString() != null)
-                {
-                    @Html.ActionLink("Hello " + Html.Action("GetProfileName", "Account").ToString(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                }
-                else
-                {
-                    @Html.ActionLink("Hello ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        <ul class="nav navbar-nav navbar-right">
+            <li class="btn-group nav">
+                <button type="button" class="btn navbar-btn" style="background-color: #3b3b3b;color:#3b3b3b;" >
+                    @if (prefName != null)
+                    {
+                        @Html.ActionLink("Hello, " + prefName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Hello ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
 
-                }
-            </button>
-            <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li>@Html.ActionLink("Edit Profile", "Edit", "Profiles", new { id = User.Identity.GetUserId() })</li>
-                <li>@Html.ActionLink("View Profile", "Details", "Profiles", new { id = User.Identity.GetUserId() })</li>
-            </ul>
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+                    }
+                </button>
+                <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>@Html.ActionLink("Edit Profile", "Edit", "ProfileDetails", new { @id = currentUser.ProfileDetails.id }, null)</li>
+                    <li>@Html.ActionLink("View Profile", "Details", "ProfileDetails", new { @id = currentUser.ProfileDetails.id }, null)</li>
+                </ul>
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
     }
 }
 else

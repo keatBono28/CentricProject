@@ -15,7 +15,7 @@ namespace CentricProject.DAL
             // Migration point will go here
         }
 
-        public DbSet<Profile>Profiles { get; set; }
+        
         
 
     }

@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,7 +12,7 @@ namespace CentricProject.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public virtual Profile Profile { get; set; }
+        public virtual ProfileDetails ProfileDetails { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -19,17 +22,53 @@ namespace CentricProject.Models
         }
     }
 
+    public class ProfileDetails
+    {
+        public int id { get; set; }
+        // Data Annotations for Employee First Name
+        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "First Name is required!")]
+        [StringLength(25)]
+        public string firstName { get; set; }
+        // Data Annotations for Employee Last Name
+        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Last Name is required!")]
+        [StringLength(25)]
+        public string lastName { get; set; }
+        // Data Annotations for Employee Preffered Name
+        [Display(Name = "Preffered Name")]
+        [Required(ErrorMessage = "Preffered Name is required!")]
+        [StringLength(25)]
+        public string prefferedName { get; set; }
+        // Data Annotations for Employee Phone Number
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^(\(\d{3}\) |\d{3}-)\d{3}-\d{4}$", ErrorMessage = "Phone Number must be in xxx-xxx-xxxx or (xxx)-xxx-xxxx format!")]
+        [Required]
+        public string phoneNumber { get; set; }
+        // Data Annotations for Employee Hire Date
+        [Display(Name = "Stared Working")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Hire Date is required! -> MM/DD/YYYY")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyy}", ApplyFormatInEditMode = true)]
+        public DateTime hireDate { get; set; }
+        // Data Annotations for Employee Business Unit
+        [Display(Name = "Business Unit")]
+        [Required(ErrorMessage = "Business Unit is required!")]
+        [StringLength(50)]
+        public string businessUnit { get; set; }
+        // Data Annotations for Employee Position
+        [Display(Name = "Position")]
+        [Required(ErrorMessage = "Position is required!")]
+        [StringLength(50)]
+        public string position { get; set; }
+    }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
+        public ApplicationDbContext() : base("DefaultConnection")
         {
         }
-        public DbSet<Profile> Profiles { get; set; }
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ApplicationUser>().HasOptional(m => m.Profile).WithRequired(m => m.ApplicationUser).Map(p => p.MapKey("userId"));
-        }
+        public DbSet<ProfileDetails> ProfileDetails { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

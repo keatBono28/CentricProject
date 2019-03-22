@@ -1,4 +1,4 @@
-﻿@model CentricProject.Models.Profile
+﻿@model CentricProject.Models.ProfileDetails
 
 @{
     ViewBag.Title = "Details";
@@ -8,7 +8,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Profile</h4>
+    <h4>ProfileDetails</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -41,14 +41,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.phoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
         </dd>
 
         <dt>

@@ -148,11 +148,25 @@ namespace CentricProject.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, ProfileDetails profileDetails)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    ProfileDetails = new ProfileDetails
+                    {
+                        firstName = profileDetails.firstName,
+                        lastName = profileDetails.lastName,
+                        prefferedName = profileDetails.prefferedName,
+                        phoneNumber = profileDetails.phoneNumber,
+                        hireDate = profileDetails.hireDate,
+                        businessUnit = profileDetails.businessUnit,
+                        position = profileDetails.position
+                    }                    
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -431,7 +445,7 @@ namespace CentricProject.Controllers
             {
                 var context = new ApplicationDbContext();
                 var id = User.Identity.GetUserId();
-                var user = context.Profiles.SingleOrDefault(u => u.prefferedName == id );
+                var user = context.ProfileDetails.SingleOrDefault(u => u.prefferedName == id );
                 return PartialView(user);
             }
             return PartialView();
