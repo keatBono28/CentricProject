@@ -7,22 +7,37 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CentricProject.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CentricProject.Controllers
 {
+    
     public class ProfileDetailsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        [Authorize(Roles ="Admin")] // This is temporary until search function is up to speed
+
+        // Variable to get the logged in user
+        
+
         // GET: ProfileDetails
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var testUsers = from u in db.Users select u;
+                testUsers = testUsers.Where(u => u.ProfileDetails.lastName.Contains(searchString) || u.ProfileDetails.firstName.Contains(searchString));
+                return View(testUsers.ToList());
+            }
+
+
             return View(db.ProfileDetails.ToList());
         }
         [Authorize] // Only the logged in user can view thier details
         // GET: ProfileDetails/Details/5
         public ActionResult Details(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -34,7 +49,7 @@ namespace CentricProject.Controllers
             }
             return View(profileDetails);
         }
-        [Authorize(Roles = "Admin")] // Profile is created during the registration portion
+       
         // GET: ProfileDetails/Create
         public ActionResult Create()
         {
@@ -63,6 +78,11 @@ namespace CentricProject.Controllers
         [Authorize] // Only the logged in user can edit thier details
         public ActionResult Edit(int? id)
         {
+            // Find out the logged in userId and verify the http request
+            if (id != AuthorizeLoggedInUser())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -128,5 +148,15 @@ namespace CentricProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        protected int AuthorizeLoggedInUser()
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            int userId = currentUser.ProfileDetails.id;
+            return userId;
+        }
+
+
     }
 }

@@ -168,6 +168,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Authorization.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -244,14 +245,12 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\GetProfileName.cshtml" />
-    <Content Include="Views\ProfileDetails\Create.cshtml" />
     <Content Include="Views\ProfileDetails\Delete.cshtml" />
     <Content Include="Views\ProfileDetails\Details.cshtml" />
     <Content Include="Views\ProfileDetails\Edit.cshtml" />
     <Content Include="Views\ProfileDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
