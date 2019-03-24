@@ -32,6 +32,7 @@
                 <ul class="dropdown-menu" role="menu">
                     <li>@Html.ActionLink("Edit Profile", "Edit", "ProfileDetails", new { @id = currentUser.ProfileDetails.id }, null)</li>
                     <li>@Html.ActionLink("View Profile", "Details", "ProfileDetails", new { @id = currentUser.ProfileDetails.id }, null)</li>
+                    <li>@Html.ActionLink("Recognize Someone", "Index", "ProfileDetails", new { @id = currentUser.ProfileDetails.id }, null)</li>
                 </ul>
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>

@@ -25,8 +25,8 @@ namespace CentricProject.Controllers
         {
             if (!String.IsNullOrEmpty(searchString))
             {
-                var testUsers = from u in db.Users select u;
-                testUsers = testUsers.Where(u => u.ProfileDetails.lastName.Contains(searchString) || u.ProfileDetails.firstName.Contains(searchString));
+                var testUsers = from u in db.ProfileDetails select u;
+                testUsers = testUsers.Where(u => u.lastName.Contains(searchString) || u.firstName.Contains(searchString));
                 return View(testUsers.ToList());
             }
 
