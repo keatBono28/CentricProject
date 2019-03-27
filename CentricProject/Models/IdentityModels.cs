@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
+
 namespace CentricProject.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -67,16 +68,22 @@ namespace CentricProject.Models
         [Display(Name = "ProfilePicture")]
         
         public byte[] profileImage { get; set; }
+        public ICollection<RecognitionModel>Recognition { get; set; }
     }
+
+    
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() : base("DefaultConnection")
         {
         }
         public DbSet<ProfileDetails> ProfileDetails { get; set; }
+        
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<CentricProject.Models.RecognitionModel> RecognitionModels { get; set; }
     }
 }

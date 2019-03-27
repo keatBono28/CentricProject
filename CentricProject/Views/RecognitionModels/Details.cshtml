@@ -1,0 +1,59 @@
+﻿@model CentricProject.Models.RecognitionModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RecognitionModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Recognized.firstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recognized.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recognizer.firstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recognizer.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.coreValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.coreValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.recognitionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

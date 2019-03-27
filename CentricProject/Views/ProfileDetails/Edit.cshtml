@@ -73,13 +73,7 @@
             @Html.ValidationMessageFor(model => model.position, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.profileImage, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <img src="" @Url.Action("ProfileImage", "ProfileDetails") />
-            <input type="file" name="ProfileImage" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
-        </div>
-    </div>
+    
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

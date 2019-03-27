@@ -14,7 +14,7 @@ namespace CentricProject.DAL
         {
             // Migration point will go here
         }
-
+        public DbSet<RecognitionModel> Recognitions { get; set; }
         
         
 
