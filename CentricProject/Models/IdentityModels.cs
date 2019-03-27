@@ -13,6 +13,7 @@ namespace CentricProject.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual ProfileDetails ProfileDetails { get; set; }
+        
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -62,6 +63,10 @@ namespace CentricProject.Models
         [Required(ErrorMessage = "Position is required!")]
         [StringLength(50)]
         public string position { get; set; }
+        // Data Annotation for the Profile Image
+        [Display(Name = "ProfilePicture")]
+        
+        public byte[] profileImage { get; set; }
     }
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

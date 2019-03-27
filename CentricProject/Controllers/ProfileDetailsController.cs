@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 using CentricProject.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace CentricProject.Controllers
 {
@@ -103,8 +105,10 @@ namespace CentricProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,firstName,lastName,prefferedName,phoneNumber,hireDate,businessUnit,position")] ProfileDetails profileDetails)
         {
+            
             if (ModelState.IsValid)
             {
+                
                 db.Entry(profileDetails).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -155,6 +159,39 @@ namespace CentricProject.Controllers
             var currentUser = manager.FindById(User.Identity.GetUserId());
             int userId = currentUser.ProfileDetails.id;
             return userId;
+        }
+
+        public FileContentResult ProfileImage()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string userId = User.Identity.GetUserId();
+                if (userId == null)
+                {
+                    string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
+                    byte[] imageData = null;
+                    FileInfo fileInfo = new FileInfo(fileName);
+                    long imageFileLength = fileInfo.Length;
+                    FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                    BinaryReader br = new BinaryReader(fs);
+                    imageData = br.ReadBytes((int)imageFileLength);
+                    return File(imageData, "image/png");
+                }
+                var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+                var userImage = bdUsers.Users.Where(x => x.Id == userId).FirstOrDefault();
+                return new FileContentResult(userImage.ProfileDetails.profileImage, "image/png");
+            }
+            else
+            {
+                string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+                return File(imageData, "image/png");
+            }
         }
 
 

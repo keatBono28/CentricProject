@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CentricProject.Models;
-
+using System.IO;
 
 namespace CentricProject.Controllers
 {
@@ -148,10 +148,19 @@ namespace CentricProject.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, ProfileDetails profileDetails)
+        public async Task<ActionResult> Register([Bind(Exclude = "profileImage")]RegisterViewModel model, ProfileDetails profileDetails)
         {
             if (ModelState.IsValid)
             {
+                // Convert the user upload to byte array
+                byte[] imageData = null;
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase poImageFile = Request.Files["profileImage"];
+                    using (var binary = new BinaryReader(poImageFile.InputStream)){
+                        imageData = binary.ReadBytes(poImageFile.ContentLength);
+                    }
+                }
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -164,7 +173,8 @@ namespace CentricProject.Controllers
                         phoneNumber = profileDetails.phoneNumber,
                         hireDate = profileDetails.hireDate,
                         businessUnit = profileDetails.businessUnit,
-                        position = profileDetails.position
+                        position = profileDetails.position,
+                        profileImage = profileDetails.profileImage = imageData
                     }                    
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);

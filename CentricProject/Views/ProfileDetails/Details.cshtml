@@ -12,6 +12,13 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.profileImage)
+        </dt>
+        <dd>
+            <img src="@Url.Action("ProfileImage","ProfileDetails")" style="width:160px;margin:auto;"/>
+            
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.firstName)
         </dt>
 
