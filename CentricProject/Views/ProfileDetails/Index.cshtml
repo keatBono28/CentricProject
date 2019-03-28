@@ -75,7 +75,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.position)
             </td>
-            <td></td>
+            <td>
+                @Html.ActionLink("Send A Recognition", "Create","RecognitionModels", new { id = item.id }, null)
+            </td>
         </tr>
     }
 

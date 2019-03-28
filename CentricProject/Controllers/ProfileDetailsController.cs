@@ -103,7 +103,7 @@ namespace CentricProject.Controllers
         [Authorize] // Only the logged in user can edit thier details
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,firstName,lastName,prefferedName,phoneNumber,hireDate,businessUnit,position")] ProfileDetails profileDetails)
+        public ActionResult Edit([Bind(Include = "id,firstName,lastName,prefferedName,phoneNumber,hireDate,businessUnit,position", Exclude = "profileImage")] ProfileDetails profileDetails)
         {
             
             if (ModelState.IsValid)
@@ -153,7 +153,7 @@ namespace CentricProject.Controllers
             base.Dispose(disposing);
         }
 
-        protected int AuthorizeLoggedInUser()
+        private int AuthorizeLoggedInUser()
         {
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var currentUser = manager.FindById(User.Identity.GetUserId());
@@ -193,6 +193,7 @@ namespace CentricProject.Controllers
                 return File(imageData, "image/png");
             }
         }
+        
 
 
     }

@@ -1,8 +1,14 @@
 ﻿@model CentricProject.Models.ProfileDetails
+@using Microsoft.AspNet.Identity
+@using CentricProject.Models
+@using Microsoft.AspNet.Identity.EntityFramework;
+
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
+
 }
 
 <h2>Details</h2>
@@ -15,8 +21,8 @@
             @Html.DisplayNameFor(model => model.profileImage)
         </dt>
         <dd>
-            <img src="@Url.Action("ProfileImage","ProfileDetails")" style="width:160px;margin:auto;"/>
-            
+            <img src="@Url.Action("ProfileImage", "ProfileDetails")" style="width:160px;margin:auto;" />
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.firstName)
@@ -75,8 +81,12 @@
         </dd>
 
     </dl>
+    
 </div>
+
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Go Back", "Index")
 </p>

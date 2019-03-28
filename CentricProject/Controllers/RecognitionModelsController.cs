@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CentricProject.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CentricProject.Controllers
 {
@@ -36,11 +38,10 @@ namespace CentricProject.Controllers
             return View(recognitionModel);
         }
 
-        // GET: RecognitionModels/Create
-        public ActionResult Create()
+        // GET: RecognitionModels/Create/?id
+        public ActionResult Create(int? id)
         {
-            ViewBag.recognizedId = new SelectList(db.ProfileDetails, "id", "firstName");
-            ViewBag.recognizerId = new SelectList(db.ProfileDetails, "id", "firstName");
+            ViewBag.recognizedId = id;
             return View();
         }
 
@@ -49,13 +50,16 @@ namespace CentricProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "recognitionId,recognizerId,recognizedId,coreValue,comments,createDate")] RecognitionModel recognitionModel)
+        public ActionResult Create([Bind(Include = "recognitionId,recognizerId,recognizedId,coreValue,comments,createDate")] RecognitionModel recognitionModel, string recognizedId)
         {
             if (ModelState.IsValid)
             {
+                recognitionModel.recognizerId = AuthorizeLoggedInUser();
+                recognitionModel.recognizedId = Convert.ToInt32(recognizedId);
+                recognitionModel.createDate = DateTime.Now;
                 db.RecognitionModels.Add(recognitionModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect("~/ProfileDetails/Index");
             }
 
             ViewBag.recognizedId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizedId);
@@ -132,5 +136,16 @@ namespace CentricProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private int AuthorizeLoggedInUser()
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            int userId = currentUser.ProfileDetails.id;
+            return userId;
+        }
+
+
+        
     }
 }
