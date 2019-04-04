@@ -1,92 +1,102 @@
-﻿@model CentricProject.Models.ProfileDetails
+﻿@model Tuple<CentricProject.Models.ProfileDetails, CentricProject.Models.RecognitionModel>
 @using Microsoft.AspNet.Identity
 @using CentricProject.Models
 @using Microsoft.AspNet.Identity.EntityFramework;
 
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Profile Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
-
+    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
+    int userId = currentUser.ProfileDetails.id;
+    string name = currentUser.ProfileDetails.prefferedName;
+    ApplicationDbContext db = new ApplicationDbContext();
+    var recognitions = from u in db.RecognitionModels select u;
+    recognitions = recognitions.Where(u => u.recognizedId == userId);
+    int count = recognitions.Count(u => u.recognizedId == userId);
+    string recs = "recognition";
+    if (count != 1)
+    {
+        recs += "s";
+    }
 }
-
-<h2>Details</h2>
-
+<div style="padding-top: 10px;">
+    <img src="@Url.Action("ProfileImage", "ProfileDetails")" style="width:160px;margin:auto;" />
+    @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Item1.id })
+</div>
 <div>
-    <h4>ProfileDetails</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.profileImage)
-        </dt>
-        <dd>
-            <img src="@Url.Action("ProfileImage", "ProfileDetails")" style="width:160px;margin:auto;" />
+    <div class="col-md-6">
+        <h4>@name.ToString(), you have @count @recs</h4>
+        @if (count > 0)
+        {
+            @Html.Partial("_RecognitionDetails", recognitions.ToList())
+        }
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
 
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.firstName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Item1.firstName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.firstName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Item1.firstName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.lastName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Item1.lastName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.lastName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Item1.lastName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.prefferedName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Item1.prefferedName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.prefferedName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Item1.prefferedName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.phoneNumber)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Item1.phoneNumber)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.phoneNumber)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Item1.phoneNumber)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.hireDate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Item1.hireDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.hireDate)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Item1.hireDate)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.businessUnit)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Item1.businessUnit)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.businessUnit)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Item1.businessUnit)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.position)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Item1.position)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.position)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Item1.position)
+            </dd>
+        </dl>
+    </div>
 
-    </dl>
     
+
 </div>
 
 
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Go Back", "Index")
-</p>

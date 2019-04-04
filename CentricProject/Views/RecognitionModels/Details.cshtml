@@ -1,59 +1,73 @@
-﻿@model CentricProject.Models.RecognitionModel
+﻿@model Tuple<CentricProject.Models.RecognitionModel, CentricProject.Models.ProfileDetails>
+@using Microsoft.AspNet.Identity
+@using CentricProject.Models
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using CentricProject.App_Code
 
 @{
+
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Getting Specific Info outside of the models
+    RetreiveEmailAddress retreiveEmailAddress = new RetreiveEmailAddress();
+    string email = retreiveEmailAddress.GetEmailAddress(Model.Item1.recognizerId); // Get Email Address for Recognizer
+    string position = retreiveEmailAddress.GetPosition(Model.Item1.recognizerId); // Get Position for Recognizer
+
+
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>RecognitionModel</h4>
+    <h4>Recognition Details</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Recognized.firstName)
+            Recognized By:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Recognized.firstName)
+            @Html.DisplayFor(model => model.Item1.Recognizer.prefferedName)
+        </dd>
+        <dt>
+            @Model.Item1.Recognizer.prefferedName.ToString()'s Position:
+        </dt>
+        <dd>
+            @position.ToString()
+        </dd>
+        <dt>
+            @Model.Item1.Recognizer.prefferedName.ToString()'s Email:
+        </dt>
+        <dd>
+            @email.ToString()
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Recognizer.firstName)
+            Core Value Demonstrated
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Recognizer.firstName)
+            @Html.DisplayFor(model => model.Item1.coreValue)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.coreValue)
+            Special Note:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.coreValue)
+            @Html.DisplayFor(model => model.Item1.comments)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.comments)
+            Created
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.comments)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.createDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.createDate)
+            @Html.DisplayFor(model => model.Item1.createDate)
         </dd>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.recognitionId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CentricProject.Models.RecognitionModel>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Recognizer
+        </th>
+        <th>
+            Recognized Core Value
+
+        </th>
+        <th>
+            Notes
+        </th>
+        <th>
+            Date & Time
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recognizer.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coreValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createDate)
+        </td>
+        <td>
+            @Html.ActionLink("View Details", "Details", "RecognitionModels", new { id = item.recognitionId }, null)
+        </td>
+    </tr>
+}
+
+</table>

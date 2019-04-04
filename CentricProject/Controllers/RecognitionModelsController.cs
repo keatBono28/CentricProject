@@ -19,7 +19,7 @@ namespace CentricProject.Controllers
         // GET: RecognitionModels
         public ActionResult Index()
         {
-            var recognitionModels = db.RecognitionModels.Include(r => r.Recognized);
+            var recognitionModels = db.RecognitionModels.Include(r => r.Recognizer);
             return View(recognitionModels.ToList());
         }
 
@@ -31,11 +31,12 @@ namespace CentricProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RecognitionModel recognitionModel = db.RecognitionModels.Find(id);
+            ProfileDetails profileDetails = db.ProfileDetails.Find(id);
             if (recognitionModel == null)
             {
                 return HttpNotFound();
             }
-            return View(recognitionModel);
+            return View(Tuple.Create(recognitionModel,profileDetails));
         }
 
         // GET: RecognitionModels/Create/?id

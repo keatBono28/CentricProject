@@ -45,11 +45,12 @@ namespace CentricProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ProfileDetails profileDetails = db.ProfileDetails.Find(id);
+            RecognitionModel recognitionModels = db.RecognitionModels.Find(id);
             if (profileDetails == null)
             {
                 return HttpNotFound();
             }
-            return View(profileDetails);
+            return View(Tuple.Create(profileDetails,recognitionModels));
         }
        
         // GET: ProfileDetails/Create

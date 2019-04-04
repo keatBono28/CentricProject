@@ -168,6 +168,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\RetreiveEmailAddress.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -254,9 +255,9 @@
     <Content Include="Views\RecognitionModels\Details.cshtml" />
     <Content Include="Views\RecognitionModels\Edit.cshtml" />
     <Content Include="Views\RecognitionModels\Index.cshtml" />
+    <Content Include="Views\ProfileDetails\_RecognitionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
