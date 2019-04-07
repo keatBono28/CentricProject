@@ -26,13 +26,13 @@ namespace CentricProject.Models
 
     public enum CoreValues
     {
-        Balance,
-        Good,
-        Innovation,
-        Stewardship,
-        Excellence,
-        Culture,
-        Intergrity
+        Balance =1,
+        Good=2,
+        Innovation=3,
+        Stewardship=4,
+        Excellence=5,
+        Culture=6,
+        Intergrity=7
     }
 
 }

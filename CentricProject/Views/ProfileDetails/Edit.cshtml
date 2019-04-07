@@ -8,7 +8,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "ProfileDetails",FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -73,7 +73,13 @@
             @Html.ValidationMessageFor(model => model.position, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+    <div class="form-group">
+        @Html.LabelFor(model => model.profileImage, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <input type="file" name="profileImageUpdate" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif"  value="@(Model.profileImage) "/>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

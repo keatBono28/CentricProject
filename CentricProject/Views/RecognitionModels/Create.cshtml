@@ -27,8 +27,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.coreValue, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("Core Value", new SelectList(Enum.GetValues(typeof(CoreValues))),"Select A Core Value", new { @class = "form-control" } )
-            @Html.ValidationMessageFor(model => model.coreValue, "", new { @class = "text-danger" })
+            @Html.EnumDropDownListFor(model => model.coreValue, "Select a core value", new { @class = "form-control" })
+            
         </div>
     </div>
 

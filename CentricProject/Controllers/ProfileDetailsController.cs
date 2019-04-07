@@ -104,14 +104,34 @@ namespace CentricProject.Controllers
         [Authorize] // Only the logged in user can edit thier details
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,firstName,lastName,prefferedName,phoneNumber,hireDate,businessUnit,position", Exclude = "profileImage")] ProfileDetails profileDetails)
+        public ActionResult Edit([Bind(Exclude = "profileImage")]ProfileDetails profileDetails)
         {
-            
+            // Convert the user upload to byte array
+            byte[] imageData = null;
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase poImageFile = Request.Files["profileImageUpdate"];
+                using (var binary = new BinaryReader(poImageFile.InputStream))
+                {
+                    imageData = binary.ReadBytes(poImageFile.ContentLength);
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                
-                db.Entry(profileDetails).State = EntityState.Modified;
+                var newInfo = db.ProfileDetails.Find(AuthorizeLoggedInUser());
+
+                newInfo.firstName = profileDetails.firstName;
+                newInfo.lastName = profileDetails.lastName;
+                newInfo.prefferedName = profileDetails.prefferedName;
+                newInfo.phoneNumber = profileDetails.phoneNumber;
+                newInfo.hireDate = profileDetails.hireDate;
+                newInfo.businessUnit = profileDetails.businessUnit;
+                newInfo.position = profileDetails.position;
+                newInfo.profileImage = imageData;
+                // db.Entry(profileDetails).State = EntityState.Modified;
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             return View(profileDetails);

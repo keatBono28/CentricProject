@@ -72,6 +72,8 @@ namespace CentricProject.Models
     }
 
     
+
+    
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() : base("DefaultConnection")
@@ -85,5 +87,6 @@ namespace CentricProject.Models
         }
 
         public System.Data.Entity.DbSet<CentricProject.Models.RecognitionModel> RecognitionModels { get; set; }
+        public object CatalogItemModels { get; internal set; }
     }
 }
