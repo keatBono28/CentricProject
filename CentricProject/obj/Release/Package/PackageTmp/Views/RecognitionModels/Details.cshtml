@@ -1,0 +1,73 @@
+﻿@model Tuple<CentricProject.Models.RecognitionModel, CentricProject.Models.ProfileDetails>
+@using Microsoft.AspNet.Identity
+@using CentricProject.Models
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using CentricProject.App_Code
+
+@{
+
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Getting Specific Info outside of the models
+    RetreiveEmailAddress retreiveEmailAddress = new RetreiveEmailAddress();
+    string email = retreiveEmailAddress.GetEmailAddress(Model.Item1.recognizerId); // Get Email Address for Recognizer
+    string position = retreiveEmailAddress.GetPosition(Model.Item1.recognizerId); // Get Position for Recognizer
+
+
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recognition Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Recognized By:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item1.Recognizer.prefferedName)
+        </dd>
+        <dt>
+            @Model.Item1.Recognizer.prefferedName.ToString()'s Position:
+        </dt>
+        <dd>
+            @position.ToString()
+        </dd>
+        <dt>
+            @Model.Item1.Recognizer.prefferedName.ToString()'s Email:
+        </dt>
+        <dd>
+            @email.ToString()
+        </dd>
+
+        <dt>
+            Core Value Demonstrated
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item1.coreValue)
+        </dd>
+
+        <dt>
+            Special Note:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item1.comments)
+        </dd>
+
+        <dt>
+            Created
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item1.createDate)
+        </dd>
+
+    </dl>
+</div>
+

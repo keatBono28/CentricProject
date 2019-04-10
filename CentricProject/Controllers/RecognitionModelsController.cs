@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using CentricProject.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net.Mail;
 
 namespace CentricProject.Controllers
 {
@@ -60,6 +61,17 @@ namespace CentricProject.Controllers
                 recognitionModel.createDate = DateTime.Now;
                 db.RecognitionModels.Add(recognitionModel);
                 db.SaveChanges();
+                // send the email to notify
+                try
+                {
+                    SendEmailAlert(Convert.ToInt32(recognizedId), recognitionModel.recognizerId);
+                }
+                catch (Exception)
+                {
+
+                    //throw;
+                }
+                
                 return Redirect("~/ProfileDetails/Index");
             }
 
@@ -144,6 +156,43 @@ namespace CentricProject.Controllers
             var currentUser = manager.FindById(User.Identity.GetUserId());
             int userId = currentUser.ProfileDetails.id;
             return userId;
+        }
+
+
+        public void SendEmailAlert(int recognizedId, int recognizerId)
+        {
+            var recognizer = db.ProfileDetails.Find(recognizerId);
+            var recognized = db.ProfileDetails.Find(recognizedId);
+            var recognizedUser = db.Users.Find(recognizedId);
+            // This method will send an email alert to the user if they are recognized.
+            SmtpClient myClient = new SmtpClient();
+            myClient.Credentials = new NetworkCredential("kb619814@ohio.edu", "Thecrew28");
+            // Build the mail address 
+            MailAddress from = new MailAddress("kb619814@ohio.edu", "System Admin");
+            // Build email message to send
+            MailMessage newMessage = new MailMessage();
+            newMessage.From = from;
+            newMessage.To.Add(recognizedUser.UserName);
+            newMessage.Subject = "Wow great job! You have been recognized by " + recognizer.prefferedName.ToString();
+            newMessage.Body = "Wow you did great work. You have been recognized by a coworker for something awesome.";
+            newMessage.Body += "Please login to see what they said!";
+            //Now try to send the message
+            try
+            {
+                myClient.Send(newMessage);
+                TempData["mailError"] = "";
+            }
+            catch (Exception ex)
+            {
+                // Do nothing it didn't work.
+                // Email confirmation is not set up
+                TempData["mailError"] = ex.ToString();
+            }
+
+
+
+
+
         }
 
 
