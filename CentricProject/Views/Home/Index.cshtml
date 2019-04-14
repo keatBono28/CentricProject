@@ -1,4 +1,5 @@
-﻿@{
+﻿@using CentricProject.App_Code;
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -38,7 +39,7 @@
                 <img src="~/Images/imgFour.jpg" alt="Image 4" style="width:100%;">
                 <div class="carousel-caption">
                     <h2>Stewardship</h2>
-                    <p>ractive Responsible Stewardship</p>
+                    <p>Practice Responsible Stewardship</p>
                 </div>
             </div>
         </div>
@@ -54,21 +55,39 @@
     </div>
 </div>
 
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Gamification</h2>
+    <div class="col-md-6">
+        @{
+            GetLeaderBoard getLeaderBoard = new GetLeaderBoard();
+            List<int> topLeaders = getLeaderBoard.getLeaders();
+            int rank = 0;
+        }
+        <h2>Recognition Leaderboard</h2>
+        <table class="table">
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Recognitions</th>
+            </tr>
+
+            @foreach (var item in topLeaders)
+            {
+                rank++;
+                <tr>
+                    <td>@rank.ToString()</td>
+                    <td>@getLeaderBoard.getName(Convert.ToInt32(item)).ToString()</td>
+                    <td>@getLeaderBoard.getRecCount(Convert.ToInt32(item))</td>
+                    
+                </tr>
+            }
+
+        </table>
+        <p></p>
+    </div>
+    <div class="col-md-6">
+        <h2>Recent Recognitions</h2>
         <p>Icons and Gamification Coming Here...</p>
         <p></p>
     </div>
-    <div class="col-md-4">
-        <h2>Gamification</h2>
-        <p>Icons and Gamification Coming Here...</p>
-        <p></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Gamification</h2>
-        <p>Icons and Gamification Coming Here...</p>
-        <p></p>
-    </div>
+    
 </div>
