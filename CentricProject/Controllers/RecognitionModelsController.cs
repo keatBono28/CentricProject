@@ -20,7 +20,7 @@ namespace CentricProject.Controllers
         // GET: RecognitionModels
         public ActionResult Index()
         {
-            var recognitionModels = db.RecognitionModels.Include(r => r.Recognizer);
+            var recognitionModels = db.RecognitionModels.Include(r => r.Recognizer).OrderByDescending(r => r.createDate);
             return View(recognitionModels.ToList());
         }
 

@@ -42,6 +42,37 @@ namespace CentricProject.App_Code
             return topLeaders;
         }
 
+        public List<int> getFullLeaderList()
+        {
+            List<int> topLeaders = new List<int>();
+            string dbConnection = "DefaultConnection";
+            string query = "SELECT recognizedId, COUNT(DISTINCT recognitionId) AS NumOfRecs FROM [RecognitionModels] GROUP BY recognizedId ORDER BY NumOfRecs DESC";
+            int rank = 1;
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.
+            ConnectionStrings[dbConnection].ToString());
+            SqlCommand queryCommand = new SqlCommand(query, sqlConnection);
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader dbReader = queryCommand.ExecuteReader();
+                while (dbReader.Read())
+                {
+                    topLeaders.Add(Convert.ToInt32(dbReader["recognizedId"]));
+                }
+                dbReader.Close();
+            }
+            catch (Exception exeception)
+            {
+                // Do nothing
+            }
+            finally
+            {
+                queryCommand.Dispose();
+                sqlConnection.Close();
+            }
+            return topLeaders;
+        }
+
         public string getName(int id)
         {
             string strReturn = "";
