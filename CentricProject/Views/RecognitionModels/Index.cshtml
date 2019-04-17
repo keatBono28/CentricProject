@@ -8,7 +8,7 @@
 
 
 
-<div class="container">
+<div class="container-fluid">
     <div class="col-lg-8">
         <h2>Recently Recognized Employees</h2>
         <table class="table">
@@ -18,11 +18,11 @@
                 string recognizedName = getLeaderBoard.getName(item.recognizedId);
                 string recognizerName = getLeaderBoard.getName(item.recognizerId);
                 string coreValue = item.coreValue.ToString();
-                string date = item.createDate.ToString("yyyy/MM/dd");
+                string date = item.createDate.ToString("MM/dd/yyyy");
 
                 <tr>
                     <td>
-                        <strong>@recognizedName</strong> was recognized by <strong>@recognizerName</strong> for displaying <strong>@coreValue</strong> on @date
+                        <strong>@recognizedName</strong> was recognized by <strong>@recognizerName</strong> for displaying our value of <strong>@coreValue</strong> on @date
                     </td>
 
                 </tr>
