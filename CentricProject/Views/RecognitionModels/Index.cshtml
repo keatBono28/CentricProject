@@ -4,22 +4,31 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     GetLeaderBoard getLeaderBoard = new GetLeaderBoard();
+    List<int> topLeaders = getLeaderBoard.getFullLeaderList();
+    int rank = 0;
 }
+<script>
+    window.onload = function() {
+        var x = document.getElementById("leaderBoardTable");
+        x.style.display = "none";
+    }
+</script>
 
+<div>
+    <button onclick="loadRecsTable();loadLeaderBoardTable()">Check out recent recognitions</button>
+    <button onclick="loadLeaderBoardTable();loadRecsTable()">Check out the leaderboard</button>
+</div>
 
-
-<div class="container-fluid">
-    <div class="col-lg-8">
+<div id="recentRecsTable">
+    <div class="col-lg-8 col-lg-offset-2">
         <h2>Recently Recognized Employees</h2>
         <table class="table">
             @foreach (var item in Model)
             {
-
                 string recognizedName = getLeaderBoard.getName(item.recognizedId);
                 string recognizerName = getLeaderBoard.getName(item.recognizerId);
                 string coreValue = item.coreValue.ToString();
                 string date = item.createDate.ToString("MM/dd/yyyy");
-
                 <tr>
                     <td>
                         <strong>@recognizedName</strong> was recognized by <strong>@recognizerName</strong> for displaying our value of <strong>@coreValue</strong> on @date
@@ -27,15 +36,11 @@
 
                 </tr>
             }
-
         </table>
     </div>
-    <div class="col-lg-4">
-        @{
-
-            List<int> topLeaders = getLeaderBoard.getFullLeaderList();
-            int rank = 0;
-        }
+</div>
+<div id="leaderBoardTable">
+    <div class="col-lg-8 col-lg-offset-2">
         <h2>Recognition Leaderboard</h2>
         <table class="table">
             <tr>
@@ -43,7 +48,6 @@
                 <th>Name</th>
                 <th>Recognitions</th>
             </tr>
-
             @foreach (var item in topLeaders)
             {
                 rank++;
@@ -51,16 +55,39 @@
                     <td>@rank.ToString()</td>
                     <td>@getLeaderBoard.getName(Convert.ToInt32(item)).ToString()</td>
                     <td>@getLeaderBoard.getRecCount(Convert.ToInt32(item))</td>
-
                 </tr>
             }
-
         </table>
         <p></p>
     </div>
 </div>
+
 <div class="container">
     <div class="col-lg-12">
         <!--Empty div to place the footer at the bottom-->
     </div>
 </div>
+<script>
+    function loadRecsTable() {
+        var x = document.getElementById("recentRecsTable");
+        var y = document.getElementById("leaderBoardTable");
+        if (x.style.display === "none" && y.style.display !== "block") {
+            x.style.display = "block";
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+    }
+    function loadLeaderBoardTable() {
+        var x = document.getElementById("leaderBoardTable");
+        var y = document.getElementById("recentRecsTable");
+        if (x.style.display === "none" && y.style.display !== "block") {
+            x.style.display = "block";
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+    }
+</script>

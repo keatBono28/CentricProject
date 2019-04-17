@@ -1,58 +1,66 @@
 ﻿@model IEnumerable<CentricProject.Models.RecognitionModel>
-
+@using CentricProject.App_Code;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    GetLeaderBoard getLeaderBoard = new GetLeaderBoard();
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Recognized.firstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model..)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.coreValue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.comments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.createDate)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recognized.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recognizer.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.coreValue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.comments)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.createDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.recognitionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.recognitionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.recognitionId })
-        </td>
-    </tr>
-}
+<div class="container-fluid">
+    <div class="col-lg-8">
+        <h2>Recently Recognized Employees</h2>
+        <table class="table">
+            @foreach (var item in Model)
+            {
 
-</table>
+                string recognizedName = getLeaderBoard.getName(item.recognizedId);
+                string recognizerName = getLeaderBoard.getName(item.recognizerId);
+                string coreValue = item.coreValue.ToString();
+                string date = item.createDate.ToString("MM/dd/yyyy");
+
+                <tr>
+                    <td>
+                        <strong>@recognizedName</strong> was recognized by <strong>@recognizerName</strong> for displaying our value of <strong>@coreValue</strong> on @date
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="col-lg-4">
+        @{
+
+            List<int> topLeaders = getLeaderBoard.getFullLeaderList();
+            int rank = 0;
+        }
+        <h2>Recognition Leaderboard</h2>
+        <table class="table">
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Recognitions</th>
+            </tr>
+
+            @foreach (var item in topLeaders)
+            {
+                rank++;
+                <tr>
+                    <td>@rank.ToString()</td>
+                    <td>@getLeaderBoard.getName(Convert.ToInt32(item)).ToString()</td>
+                    <td>@getLeaderBoard.getRecCount(Convert.ToInt32(item))</td>
+
+                </tr>
+            }
+
+        </table>
+        <p></p>
+    </div>
+</div>
+<div class="container">
+    <div class="col-lg-12">
+        <!--Empty div to place the footer at the bottom-->
+    </div>
+</div>

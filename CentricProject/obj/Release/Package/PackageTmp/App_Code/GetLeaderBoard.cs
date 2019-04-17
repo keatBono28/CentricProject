@@ -5,17 +5,17 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-using CentricProject.Models;
 
 namespace CentricProject.App_Code
 {
-    public class RecognitionNews
+    public class GetLeaderBoard
     {
-        public List<int> getRecentRecs()
+
+        public List<int> getLeaders()
         {
-            List<int> recentRecs = new List<int>();
+            List<int> topLeaders = new List<int>();
             string dbConnection = "DefaultConnection";
-            string query = "SELECT TOP (3) recognitionId FROM [RecognitionModels] ORDER BY createDate DESC";
+            string query = "SELECT TOP (3) recognizedId, COUNT(DISTINCT recognitionId) AS NumOfRecs FROM [RecognitionModels] GROUP BY recognizedId ORDER BY NumOfRecs DESC";
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.
             ConnectionStrings[dbConnection].ToString());
             SqlCommand queryCommand = new SqlCommand(query, sqlConnection);
@@ -25,7 +25,7 @@ namespace CentricProject.App_Code
                 SqlDataReader dbReader = queryCommand.ExecuteReader();
                 while (dbReader.Read())
                 {
-                    recentRecs.Add(Convert.ToInt32(dbReader["recognitionId"]));
+                    topLeaders.Add(Convert.ToInt32(dbReader["recognizedId"]));
                 }
                 dbReader.Close();
             }
@@ -38,104 +38,41 @@ namespace CentricProject.App_Code
                 queryCommand.Dispose();
                 sqlConnection.Close();
             }
-            return recentRecs;
+            return topLeaders;
         }
 
-        public string recDetailsRecognizer(int recognitionId)
+        public List<int> getFullLeaderList()
         {
-            string strReturn = "";
+            List<int> topLeaders = new List<int>();
             string dbConnection = "DefaultConnection";
-            string query = "SELECT recognizerId FROM [RecognitionModels] WHERE recognitionId=@recognitionId";
+            string query = "SELECT recognizedId, COUNT(DISTINCT recognitionId) AS NumOfRecs FROM [RecognitionModels] GROUP BY recognizedId ORDER BY NumOfRecs DESC";
+            int rank = 1;
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.
             ConnectionStrings[dbConnection].ToString());
             SqlCommand queryCommand = new SqlCommand(query, sqlConnection);
-            queryCommand.Parameters.Add("@recognitionId", SqlDbType.Int).Value = recognitionId;
             try
             {
                 sqlConnection.Open();
                 SqlDataReader dbReader = queryCommand.ExecuteReader();
                 while (dbReader.Read())
                 {
-                    strReturn = getName(Convert.ToInt32(dbReader["recognizerId"]));
+                    topLeaders.Add(Convert.ToInt32(dbReader["recognizedId"]));
                 }
                 dbReader.Close();
             }
             catch (Exception exeception)
             {
-                // Do nothing.
+                // Do nothing
             }
             finally
             {
                 queryCommand.Dispose();
                 sqlConnection.Close();
             }
-            return strReturn;
+            return topLeaders;
         }
 
-        public string recDetailsRecognized(int recognitionId)
-        {
-            string strReturn = "";
-            string dbConnection = "DefaultConnection";
-            string query = "SELECT recognizedId FROM [RecognitionModels] WHERE recognitionId=@recognitionId";
-            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.
-            ConnectionStrings[dbConnection].ToString());
-            SqlCommand queryCommand = new SqlCommand(query, sqlConnection);
-            queryCommand.Parameters.Add("@recognitionId", SqlDbType.Int).Value = recognitionId;
-            try
-            {
-                sqlConnection.Open();
-                SqlDataReader dbReader = queryCommand.ExecuteReader();
-                while (dbReader.Read())
-                {
-                    strReturn = getName(Convert.ToInt32(dbReader["recognizedId"]));
-                }
-                dbReader.Close();
-            }
-            catch (Exception exeception)
-            {
-                // Do nothing.
-            }
-            finally
-            {
-                queryCommand.Dispose();
-                sqlConnection.Close();
-            }
-            return strReturn;
-        }
-
-        public string recDetailsCoreValue(int recognitionId)
-        {
-            string strReturn = "";
-            string dbConnection = "DefaultConnection";
-            string query = "SELECT coreValue FROM [RecognitionModels] WHERE recognitionId=@recognitionId";
-            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.
-            ConnectionStrings[dbConnection].ToString());
-            SqlCommand queryCommand = new SqlCommand(query, sqlConnection);
-            queryCommand.Parameters.Add("@recognitionId", SqlDbType.Int).Value = recognitionId;
-            try
-            {
-                sqlConnection.Open();
-                SqlDataReader dbReader = queryCommand.ExecuteReader();
-                while (dbReader.Read())
-                {
-                    CoreValues coreValue = (CoreValues)(Convert.ToInt32(dbReader["coreValue"]));
-                    strReturn = coreValue.ToString();
-                }
-                dbReader.Close();
-            }
-            catch (Exception exeception)
-            {
-                // Do nothing.
-            }
-            finally
-            {
-                queryCommand.Dispose();
-                sqlConnection.Close();
-            }
-            return strReturn;
-        }
-
-        private string getName(int id)
+        public string getName(int id)
         {
             string strReturn = "";
             string dbConnection = "DefaultConnection";
@@ -166,5 +103,35 @@ namespace CentricProject.App_Code
             return strReturn;
         }
 
+        public int getRecCount(int recognizedId)
+        {
+            int count = 0;
+            string dbConnection = "DefaultConnection";
+            string query = "SELECT COUNT(DISTINCT recognitionId) as NumOfRecs FROM [RecognitionModels] WHERE recognizedId=@recognizedId";
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.
+            ConnectionStrings[dbConnection].ToString());
+            SqlCommand queryCommand = new SqlCommand(query, sqlConnection);
+            queryCommand.Parameters.Add("@recognizedId", SqlDbType.Int).Value = recognizedId;
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader dbReader = queryCommand.ExecuteReader();
+                while (dbReader.Read())
+                {
+                    count = Convert.ToInt32(dbReader["NumOfRecs"]);
+                }
+                dbReader.Close();
+            }
+            catch (Exception exeception)
+            {
+                // Do nothing.
+            }
+            finally
+            {
+                queryCommand.Dispose();
+                sqlConnection.Close();
+            }
+            return count;
+        }
     }
 }
