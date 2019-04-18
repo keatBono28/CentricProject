@@ -55,6 +55,11 @@ namespace CentricProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "recognitionId,recognizerId,recognizedId,coreValue,comments,createDate")] RecognitionModel recognitionModel, string recognizedId)
         {
+            if (Convert.ToInt32(recognizedId) == AuthorizeLoggedInUser())
+            {
+                // Throw to the error page, user cannot create for themselves
+                return RedirectToAction("Index", "Error");
+            }
             string email = TempData["email"].ToString();
             if (ModelState.IsValid)
             {

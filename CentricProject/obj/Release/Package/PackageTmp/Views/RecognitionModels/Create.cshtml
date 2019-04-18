@@ -2,11 +2,14 @@
 @using Microsoft.AspNet.Identity
 @using CentricProject.Models
 @using Microsoft.AspNet.Identity.EntityFramework;
+@using CentricProject.App_Code;
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.recognizedId = ViewBag.recognizedId;
+    RetreiveEmailAddress retreiveEmailAddress = new RetreiveEmailAddress();
+    TempData["email"] = retreiveEmailAddress.GetEmailAddress(ViewBag.recognizedId); // Get Email Address for Recognizer
 }
 
 <h2>Create</h2>
