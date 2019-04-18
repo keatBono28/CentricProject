@@ -114,6 +114,7 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(profileDetails);
         }
 
@@ -123,23 +124,28 @@ namespace CentricProject.Controllers
         [Authorize] // Only the logged in user can edit thier details
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Exclude = "profileImage")]ProfileDetails profileDetails)
+        public ActionResult Edit([Bind(Exclude = "profileImage")]ProfileDetails profileDetails, bool useOldImage = false)
         {
-            // Convert the user upload to byte array
+            int userId = AuthorizeLoggedInUser();
             byte[] imageData = null;
-            if (Request.Files.Count > 0)
+            if (useOldImage == false)
             {
-                HttpPostedFileBase poImageFile = Request.Files["profileImageUpdate"];
-                using (var binary = new BinaryReader(poImageFile.InputStream))
+                // Convert the user upload to byte array
+                if (Request.Files.Count > 0)
                 {
-                    imageData = binary.ReadBytes(poImageFile.ContentLength);
+                    HttpPostedFileBase poImageFile = Request.Files["profileImageUpdate"];
+                    using (var binary = new BinaryReader(poImageFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(poImageFile.ContentLength);
+                    }
                 }
             }
-
+            // Retrieving old profile details to get old image
+            ProfileDetails oldProfile = db.ProfileDetails.Find(userId);
             if (ModelState.IsValid)
             {
                 var newInfo = db.ProfileDetails.Find(AuthorizeLoggedInUser());
-
+                
                 newInfo.firstName = profileDetails.firstName;
                 newInfo.lastName = profileDetails.lastName;
                 newInfo.prefferedName = profileDetails.prefferedName;
@@ -147,8 +153,24 @@ namespace CentricProject.Controllers
                 newInfo.hireDate = profileDetails.hireDate;
                 newInfo.businessUnit = profileDetails.businessUnit;
                 newInfo.position = profileDetails.position;
-                newInfo.profileImage = imageData;
-                // db.Entry(profileDetails).State = EntityState.Modified;
+                if (useOldImage == true)
+                {
+                    newInfo.profileImage = oldProfile.profileImage;
+                }
+                else
+                {
+                    // Double checking user input. 
+                    if (imageData != null)
+                    {
+                        newInfo.profileImage = imageData;
+                    }
+                    else
+                    {
+                        // If we get here, the user unchecked the box, but
+                        // did not upload new image. We will default to old image
+                        newInfo.profileImage = oldProfile.profileImage;
+                    }
+                }
                 db.SaveChanges();
                 
                 return RedirectToAction("Index");

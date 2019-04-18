@@ -4,7 +4,29 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#profImage')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    window.onload = function () {
+        var x = document.getElementById("UploadNewImage");
+        x.style.display = "none";
+    }
+</script>
+<style>
+    input.prevImage{
+        background: url(@Url.Action("ProfileImage", "ProfileDetails"))
+    }
+</style>
 <h2>Edit</h2>
 
 
@@ -76,7 +98,17 @@
     <div class="form-group">
         @Html.LabelFor(model => model.profileImage, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            <input type="file" name="profileImageUpdate" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif"  value="@(Model.profileImage) "/>
+            <div id="UploadNewImage">
+                <input class="prevImage" type="file" name="profileImageUpdate" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" onchange="readURL(this);" />
+                <img id="profImage" src="#" style="width:160px;margin:auto;" />
+            </div>
+            <div id="hideImage">
+                <img src="@Url.Action("ProfileImage", "ProfileDetails")" style="width:160px;margin:auto;" />
+            </div>
+            <div id="UsingOldImage">
+                <label><input name="useOldImage" type="checkbox" value="true" checked onchange="UploadNewImage()" />Use old profile image?</label>
+            </div>
+
         </div>
     </div>
 
@@ -96,3 +128,16 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    function UploadNewImage() {
+        var x = document.getElementById("UploadNewImage");
+        var y = document.getElementById("hideImage");
+        if (x.style.display === "none" && y.style.display !== "block") {
+            x.style.display = "block";
+            y.style.display = "none";
+        } else {
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+    }
+</script>
