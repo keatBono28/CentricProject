@@ -1,18 +1,40 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Error/Access Denied!";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div style=" padding:20px; color:red">
-    <h3>
-        My Own Created Error Page:
-    </h3>
-    <h4>
-        Sorry, The Page, You are Looking for File is not found Or Controller Name / Controller Action Method Name Not There.
-    </h4>
+<div class="container">
+    <h2 style="margin-top: 100px; color:black;">
+        <strong>Oops.. Looks like you tried to access something that you do not have access to!</strong>
+    </h2>
+    <div>
+        <h2 style="color: black;">
+            <strong>
+                You will be redirected to the home page in...
+            </strong>
+            <strong>
+                <a style="color:black; "id="counter">8</a>
+            </strong>
+        </h2>
+    </div>
+
+    <div class="col-lg-4 col-lg-offset-4" style="margin-top:50px;">
+        <img src="~/Images/denied.png" style="width:75%;">
+    </div>
     
     <br />
     <br />
 </div>
+
+<!--Script for timer to redirect-->
+<script>
+        setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                window.location.replace("/");
+            }
+        }, 1000);
+</script>
 
