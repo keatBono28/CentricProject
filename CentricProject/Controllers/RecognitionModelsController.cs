@@ -29,13 +29,13 @@ namespace CentricProject.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Error");
             }
             RecognitionModel recognitionModel = db.RecognitionModels.Find(id);
             ProfileDetails profileDetails = db.ProfileDetails.Find(id);
             if (recognitionModel == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Error");
             }
             return View(Tuple.Create(recognitionModel,profileDetails));
         }
@@ -68,7 +68,7 @@ namespace CentricProject.Controllers
                 }
                 catch (Exception)
                 {
-
+                    
                     //throw;
                 }
                 
@@ -83,18 +83,20 @@ namespace CentricProject.Controllers
         // GET: RecognitionModels/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RecognitionModel recognitionModel = db.RecognitionModels.Find(id);
-            if (recognitionModel == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.recognizedId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizedId);
-            ViewBag.recognizerId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizerId);
-            return View(recognitionModel);
+            // Users should not be allowed to edit a recognition
+            return RedirectToAction("Index", "Error");
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //RecognitionModel recognitionModel = db.RecognitionModels.Find(id);
+            //if (recognitionModel == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //ViewBag.recognizedId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizedId);
+            //ViewBag.recognizerId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizerId);
+            //return View(recognitionModel);
         }
 
         // POST: RecognitionModels/Edit/5
@@ -104,30 +106,34 @@ namespace CentricProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "recognitionId,recognizerId,recognizedId,coreValue,comments,createDate")] RecognitionModel recognitionModel)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(recognitionModel).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.recognizedId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizedId);
-            ViewBag.recognizerId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizerId);
-            return View(recognitionModel);
+            // Users are not allowed to edit a recognition
+            return RedirectToAction("Index", "Error");
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(recognitionModel).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //ViewBag.recognizedId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizedId);
+            //ViewBag.recognizerId = new SelectList(db.ProfileDetails, "id", "firstName", recognitionModel.recognizerId);
+            //return View(recognitionModel);
         }
 
         // GET: RecognitionModels/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RecognitionModel recognitionModel = db.RecognitionModels.Find(id);
-            if (recognitionModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(recognitionModel);
+            // Users are not allowed to delete a recognition
+            return RedirectToAction("Index", "Error");
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //RecognitionModel recognitionModel = db.RecognitionModels.Find(id);
+            //if (recognitionModel == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(recognitionModel);
         }
 
         // POST: RecognitionModels/Delete/5
@@ -135,10 +141,12 @@ namespace CentricProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RecognitionModel recognitionModel = db.RecognitionModels.Find(id);
-            db.RecognitionModels.Remove(recognitionModel);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            // Users are not allowed to delete a recognition
+            return RedirectToAction("Index", "Error");
+            //RecognitionModel recognitionModel = db.RecognitionModels.Find(id);
+            //db.RecognitionModels.Remove(recognitionModel);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

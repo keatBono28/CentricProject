@@ -41,6 +41,8 @@ namespace CentricProject.Controllers
         {
             if (id != AuthorizeLoggedInUser())
             {
+                // User is attempting access to another account. 
+                // Send them to error page
                 return RedirectToAction("Index", "Error");
 
             }
@@ -52,7 +54,8 @@ namespace CentricProject.Controllers
             RecognitionModel recognitionModels = db.RecognitionModels.Find(id);
             if (profileDetails == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Error");
+                //return HttpNotFound();
             }
             return View(Tuple.Create(profileDetails,recognitionModels));
         }
@@ -60,7 +63,11 @@ namespace CentricProject.Controllers
         // GET: ProfileDetails/Create
         public ActionResult Create()
         {
-            return View();
+            // The only time an account can be created is during registration.
+            // This functionality will be disabled
+            // Return the custom error page
+            return RedirectToAction("Index", "Error");
+            //return View();
         }
 
         // POST: ProfileDetails/Create
@@ -71,14 +78,19 @@ namespace CentricProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,firstName,lastName,prefferedName,phoneNumber,hireDate,businessUnit,position")] ProfileDetails profileDetails)
         {
-            if (ModelState.IsValid)
+
+            // The only time an account can be created is during registration.
+            // This functionality will be disabled
+            // Return the custom error page
+            return RedirectToAction("Index", "Error");
+            /*if (ModelState.IsValid)
             {
                 db.ProfileDetails.Add(profileDetails);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(profileDetails);
+            return View(profileDetails);*/
         }
 
         // GET: ProfileDetails/Edit/5
@@ -88,7 +100,10 @@ namespace CentricProject.Controllers
             // Find out the logged in userId and verify the http request
             if (id != AuthorizeLoggedInUser())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                // User is attempting access to another account. 
+                // Send them to error page
+                return RedirectToAction("Index", "Error");
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             if (id == null)
             {
@@ -145,16 +160,20 @@ namespace CentricProject.Controllers
         [Authorize(Roles = "Admin")] // Only Admins can delete the data
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProfileDetails profileDetails = db.ProfileDetails.Find(id);
-            if (profileDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(profileDetails);
+            // User is attempting to delete an account. 
+            // Send them to error page
+            return RedirectToAction("Index", "Error");
+
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //ProfileDetails profileDetails = db.ProfileDetails.Find(id);
+            //if (profileDetails == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(profileDetails);
         }
 
         // POST: ProfileDetails/Delete/5
@@ -163,10 +182,13 @@ namespace CentricProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProfileDetails profileDetails = db.ProfileDetails.Find(id);
-            db.ProfileDetails.Remove(profileDetails);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            // User is attempting to delete an account. 
+            // Send them to error page
+            return RedirectToAction("Index", "Error");
+            //ProfileDetails profileDetails = db.ProfileDetails.Find(id);
+            //db.ProfileDetails.Remove(profileDetails);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
