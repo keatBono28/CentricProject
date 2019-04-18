@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    RecognitionNews recognitionNews = new RecognitionNews();
     GetLeaderBoard getLeaderBoard = new GetLeaderBoard();
     List<int> topLeaders = getLeaderBoard.getFullLeaderList();
     int rank = 0;
@@ -15,9 +15,19 @@
     }
 </script>
 
-<div>
-    <button onclick="loadRecsTable();loadLeaderBoardTable()">Check out recent recognitions</button>
-    <button onclick="loadLeaderBoardTable();loadRecsTable()">Check out the leaderboard</button>
+<div class="col-md-4 col-md-offset-4">
+    <div>
+        <table style="margin-top:10px;">
+            <tr>
+                <td>
+                    <button class="btn-info" style="margin-right:10px;" onclick="loadRecsTable();loadLeaderBoardTable()">Check out recent recognitions</button>
+                </td>
+                <td>
+                    <button class="btn-info" style="margin-left:10px;" onclick="loadLeaderBoardTable();loadRecsTable()">Check out the leaderboard</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <div id="recentRecsTable">
@@ -30,14 +40,32 @@
                 string recognizerName = getLeaderBoard.getName(item.recognizerId);
                 string coreValue = item.coreValue.ToString();
                 string date = item.createDate.ToString("MM/dd/yyyy");
-                
-
+                string comments = recognitionNews.recDetailsComments(item.recognitionId);
                 <tr>
                     <td>
                         <strong>@recognizedName</strong> was recognized by <strong>@recognizerName</strong> for displaying our value of <strong>@coreValue</strong> on @date
                     </td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#@item.recognitionId">See Comments</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="@item.recognitionId" role="dialog">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Recognition Comments</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>@comments</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
-                
             }
         </table>
     </div>
