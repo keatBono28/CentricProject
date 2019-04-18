@@ -10,7 +10,6 @@ namespace CentricProject.App_Code
 {
     public class GetLeaderBoard
     {
-
         public List<int> getLeaders()
         {
             List<int> topLeaders = new List<int>();

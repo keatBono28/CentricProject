@@ -39,7 +39,11 @@ namespace CentricProject.Controllers
         // GET: ProfileDetails/Details/5
         public ActionResult Details(int? id)
         {
-            
+            if (id != AuthorizeLoggedInUser())
+            {
+                return RedirectToAction("Index", "Error");
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

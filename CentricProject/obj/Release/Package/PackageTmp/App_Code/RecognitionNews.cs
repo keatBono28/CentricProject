@@ -134,6 +134,7 @@ namespace CentricProject.App_Code
             }
             return strReturn;
         }
+
         private string getName(int id)
         {
             string strReturn = "";
@@ -165,6 +166,35 @@ namespace CentricProject.App_Code
             return strReturn;
         }
 
-
+        public string recDetailsComments(int recognitionId)
+        {
+            string strReturn = "";
+            string dbConnection = "DefaultConnection";
+            string query = "SELECT comments FROM [RecognitionModels] WHERE recognitionId=@recognitionId";
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.
+            ConnectionStrings[dbConnection].ToString());
+            SqlCommand queryCommand = new SqlCommand(query, sqlConnection);
+            queryCommand.Parameters.Add("@recognitionId", SqlDbType.Int).Value = recognitionId;
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader dbReader = queryCommand.ExecuteReader();
+                while (dbReader.Read())
+                {
+                    strReturn = dbReader["comments"].ToString();
+                }
+                dbReader.Close();
+            }
+            catch (Exception exeception)
+            {
+                // Do nothing.
+            }
+            finally
+            {
+                queryCommand.Dispose();
+                sqlConnection.Close();
+            }
+            return strReturn;
+        }
     }
 }

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
     GetLeaderBoard getLeaderBoard = new GetLeaderBoard();
     List<int> topLeaders = getLeaderBoard.getFullLeaderList();
     int rank = 0;
@@ -29,16 +30,14 @@
                 string recognizerName = getLeaderBoard.getName(item.recognizerId);
                 string coreValue = item.coreValue.ToString();
                 string date = item.createDate.ToString("MM/dd/yyyy");
-                string comments = item.comments.ToString();
+                
+
                 <tr>
                     <td>
                         <strong>@recognizedName</strong> was recognized by <strong>@recognizerName</strong> for displaying our value of <strong>@coreValue</strong> on @date
                     </td>
-                    <td>
-                        <a href="#" data-toggle="popover" title="Recognition Comments" data-trigger="hover" data-content="@comments">Comments</a>
-                    </td>
-
                 </tr>
+                
             }
         </table>
     </div>
