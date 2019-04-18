@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Net.Mail;
 
+
 namespace CentricProject.Controllers
 {
     public class RecognitionModelsController : Controller
@@ -54,6 +55,7 @@ namespace CentricProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "recognitionId,recognizerId,recognizedId,coreValue,comments,createDate")] RecognitionModel recognitionModel, string recognizedId)
         {
+            string email = TempData["email"].ToString();
             if (ModelState.IsValid)
             {
                 recognitionModel.recognizerId = AuthorizeLoggedInUser();
@@ -64,7 +66,7 @@ namespace CentricProject.Controllers
                 // send the email to notify
                 try
                 {
-                    SendEmailAlert(Convert.ToInt32(recognizedId), recognitionModel.recognizerId);
+                    SendEmailAlert(Convert.ToInt32(recognizedId), recognitionModel.recognizerId, email);
                 }
                 catch (Exception)
                 {
@@ -167,11 +169,12 @@ namespace CentricProject.Controllers
         }
 
 
-        public void SendEmailAlert(int recognizedId, int recognizerId)
+        public void SendEmailAlert(int recognizedId, int recognizerId, string email)
         {
+            
             var recognizer = db.ProfileDetails.Find(recognizerId);
             var recognized = db.ProfileDetails.Find(recognizedId);
-            var recognizedUser = db.Users.Find(recognizedId);
+            //var recognizedUser = db.Users.Find();
             // This method will send an email alert to the user if they are recognized.
             SmtpClient myClient = new SmtpClient();
             myClient.Credentials = new NetworkCredential("kb619814@ohio.edu", "Thecrew28");
@@ -180,7 +183,7 @@ namespace CentricProject.Controllers
             // Build email message to send
             MailMessage newMessage = new MailMessage();
             newMessage.From = from;
-            newMessage.To.Add(recognizedUser.UserName);
+            newMessage.To.Add(email);
             newMessage.Subject = "Wow great job! You have been recognized by " + recognizer.prefferedName.ToString();
             newMessage.Body = "Wow you did great work. You have been recognized by a coworker for something awesome.";
             newMessage.Body += "Please login to see what they said!";
