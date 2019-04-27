@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*About page styling*/
+
+.values-card {
+    background-color: #412e5e;
+    color: #ffb612;
+    text-align: center;
+    box-shadow: 5px 5px #888888;
+    margin: 10px;
+}
+
