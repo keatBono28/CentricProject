@@ -19,16 +19,39 @@ namespace CentricProject.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "About Centric";
-
+            string access = "";
+            if (AuthorizeLoggedInUser() == 0)
+            {
+                access = "deny";
+            }
+            else
+            {
+                access = "show";
+            }
+            ViewBag.Message = access;
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Get In Contact with the Admins.";
-
             return View();
+        }
+
+        private int AuthorizeLoggedInUser()
+        {
+            int userId = 0;
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            if (manager.FindById(User.Identity.GetUserId()) != null)
+            {
+                var currentUser = manager.FindById(User.Identity.GetUserId());
+                userId = currentUser.ProfileDetails.id;
+                return userId;
+            }
+            else
+            {
+                return userId;
+            }
         }
     }
 }

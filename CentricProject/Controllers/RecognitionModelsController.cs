@@ -44,8 +44,16 @@ namespace CentricProject.Controllers
         // GET: RecognitionModels/Create/?id
         public ActionResult Create(int? id)
         {
-            ViewBag.recognizedId = id;
-            return View();
+            if (AuthorizeLoggedInUser() != 0)
+            {
+                ViewBag.recognizedId = id;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            
         }
 
         // POST: RecognitionModels/Create
@@ -167,10 +175,18 @@ namespace CentricProject.Controllers
 
         private int AuthorizeLoggedInUser()
         {
+            int userId = 0;
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(User.Identity.GetUserId());
-            int userId = currentUser.ProfileDetails.id;
-            return userId;
+            if (manager.FindById(User.Identity.GetUserId()) != null)
+            {
+                var currentUser = manager.FindById(User.Identity.GetUserId());
+                userId = currentUser.ProfileDetails.id;
+                return userId;
+            }
+            else
+            {
+                return userId;
+            }
         }
 
 
