@@ -1,7 +1,149 @@
 ﻿@{
-    ViewBag.Title = "About Centric - Site Under Construction";
+    ViewBag.Title = "About Centric and Our Values";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<script>
+    window.onload = function () {
+        for (var i = 1; i < 8; i++) {
+            var j = "recBtn" + i.toString();
+            var x = document.getElementById(j);
+            x.style.display = "none";
+            var access = '@ViewBag.Message';
+            if (access == "deny") {
+                x.style.display = "none";
+            }
+            else {
+                x.style.display = "block";
+            }
+        }
+    }
+</script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
 
-<p>This Page will be used for giving detials about the application</p>
+
+
+
+<div class="col-lg-12 about-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <!--Embeded Twitter Feed. For more details visit https://publish.twitter.com/ -->
+                    <a class="twitter-timeline" data-height="500" data-width="400" data-theme="light" href="https://twitter.com/centric?ref_src=twsrc%5Etfw">Tweets by centric</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="lineSpacer">
+                        <hr />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <!--Embeded Facebook Page. For more details visit https://developers.facebook.com/docs/plugins/page-plugin -->
+                    <div class="fb-page" data-href="https://www.facebook.com/CentricConsultingNational/" data-tabs="timeline" data-width="400" data-height="500" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/CentricConsultingNational/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/CentricConsultingNational/">Centric Consulting</a></blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-5 values-card">
+                    <i class="glyphicon glyphicon-exclamation-sign" style="font-size:400%;"></i>
+                    <h3 id="valueHeaders">Integrity & Openness</h3>
+                    <h4>Embrace Integrity and Openness</h4>
+                    <p>
+                        We set and live by the highest ethical standards in all our
+                        dealings whether it is internal or external – we do the right thing for our
+                        clients, associates and company.
+                    </p>
+                    <p>
+                        <a id="recBtn1" role="button" class="btn btn-primary btn-values" href="@Url.Action("Index","ProfileDetails")">Recognize Integrity & Openness&raquo;</a>
+                    </p>
+                </div>
+                <div class="col-md-5 values-card">
+                    <i class="glyphicon glyphicon-certificate" style="font-size:400%;"></i>
+                    <h3 id="valueHeaders">Innovation</h3>
+                    <h4>Strive to Innovate</h4>
+                    <p>
+                        We constantly seek to foster an entrepreneurial, hard working, fun loving culture that encourages
+                        innovation and prudent individual or team risk taking within the context of our core values.
+                    </p>
+                    <p>
+                        <a id="recBtn2" role="button" class="btn btn-primary btn-values" href="@Url.Action("Index","ProfileDetails")">Recognize Innovation&raquo;</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 values-card">
+                    <i class="glyphicon glyphicon-level-up" style="font-size:400%;"></i>
+                    <h3 id="valueHeaders">Stewardship</h3>
+                    <h4>Practice Responsible Stewardship</h4>
+                    <p>
+                        We guard and conserve company resources as if they were our own because it makes good business
+                        sense at all times; not just during lean times. We invest in areas which will contribute to the
+                        long-term sustainability of our company.
+                    </p>
+                    <p>
+                        <a id="recBtn3" role="button" class="btn btn-primary btn-values" href="@Url.Action("Index","ProfileDetails")">Recognize Stewardship&raquo;</a>
+                    </p>
+                </div>
+                <div class="col-md-5 values-card">
+                    <i class="glyphicon glyphicon-tree-deciduous" style="font-size:400%;"></i>
+                    <h3 id="valueHeaders">Greater Good</h3>
+                    <h4>Ignite Passion for the Greater Good</h4>
+                    <p>
+                        We actively seek innovative ways to safeguard the environment
+                        and make a positive difference in every community we serve.
+                    </p>
+                    <p>
+                        <a id="recBtn4" role="button" class="btn btn-primary btn-values" href="@Url.Action("Index","ProfileDetails")">Recognize Greater Good&raquo;</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 values-card">
+                    <i class="glyphicon glyphicon-send" style="font-size:400%;"></i>
+                    <h3 id="valueHeaders">Delivery Excellence</h3>
+                    <h4>Commit to Delivery Excellence</h4>
+                    <p>
+                        In our dealings with clients we strive to first understand the
+                        client’s needs and then deliver on our commitments 100% of the time!
+                    </p>
+                    <p>
+                        <a id="recBtn5" role="button" class="btn btn-primary btn-values" href="@Url.Action("Index","ProfileDetails")">Recognize Delivery Excellence&raquo;</a>
+                    </p>
+                </div>
+                <div class="col-md-5 values-card">
+                    <i class="glyphicon glyphicon-user" style="font-size:400%;"></i>
+                    <h3 id="valueHeaders">Culture</h3>
+                    <h4>Invest in an Exceptional Culture</h4>
+                    <p>
+                        We go to extraordinary lengths to hire the best and then make sure they are
+                        welcomed into a fun and diverse work environment where team collaboration is
+                        the rule rather than the exception.
+                    </p>
+                    <p>
+                        <a id="recBtn6" role="button" class="btn btn-primary btn-values" href="@Url.Action("Index","ProfileDetails")">Recognize Culture&raquo;</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-offset-4 values-card">
+                    <i class="glyphicon glyphicon-home" style="font-size:400%;"></i>
+                    <h3 id="valueHeaders">Balance</h3>
+                    <h4>Live a Balanced Life</h4>
+                    <p></p>
+                    <p>
+                        <a id="recBtn7" role="button" class="btn btn-primary btn-values" href="@Url.Action("Index","ProfileDetails")">Recognize Balance&raquo;</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

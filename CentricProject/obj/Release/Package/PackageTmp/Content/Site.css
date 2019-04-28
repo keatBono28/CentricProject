@@ -22,3 +22,68 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*About page styling*/
+.about-header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #ffb612;
+    color: #412e5e;
+    font-weight: bold;
+    text-align: center;
+}
+.values-card {
+    background-color: #412e5e;
+    color: #ffb612;
+    text-align: center;
+    box-shadow: 5px 5px #888888;
+    margin: 10px;
+    padding-top: 20px;
+    padding-bottom:20px;
+}
+
+#valueHeaders {
+    text-decoration:underline;
+    font-weight:bold;
+}
+
+.btn-values {
+    background-color: #ffb612;
+    color: #412e5e;
+}
+
+.btn-values:hover {
+    background-color: #d4980f;
+    color: #5e4388;
+}
+
+.btn-values:focus {
+    background-color: #d4980f;
+    color: #5e4388;
+}
+
+.btn-values:active {
+    background-color: #d4980f;
+    color: #5e4388;
+}
+
+.lineSpacer {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 10px solid #412e5e;
+    margin: 1em 0;
+    padding: 0;
+}
+
+
+
+
+

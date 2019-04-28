@@ -14,19 +14,13 @@
         x.style.display = "none";
     }
 </script>
+
+
 <div class="container">
-    <div class="col-md-4 col-md-offset-4">
+    <div class="col-lg-12 recent-News-Header">
         <div>
-            <table style="margin-top:10px;">
-                <tr>
-                    <td>
-                        <button class="btn-info" style="margin-right:10px;" onclick="loadRecsTable();loadLeaderBoardTable()">Check out recent recognitions</button>
-                    </td>
-                    <td>
-                        <button class="btn-info" style="margin-left:10px;" onclick="loadLeaderBoardTable();loadRecsTable()">Check out the leaderboard</button>
-                    </td>
-                </tr>
-            </table>
+            <button class="btn btn-SwitchView" style="margin-right:10px;" onclick="loadRecsTable();loadLeaderBoardTable()">View Recent Recognitions</button>
+            <button class="btn btn-SwitchView" style="margin-left:10px;" onclick="loadLeaderBoardTable();loadRecsTable()">View the Leaderboard</button>
         </div>
     </div>
 </div>
@@ -34,8 +28,8 @@
 
 <div id="recentRecsTable">
     <div class="col-lg-8 col-lg-offset-2">
-        <h2>Recently Recognized Employees</h2>
-        <table class="table">
+        <h2 class="rec-header">Recently Recognized Employees</h2>
+        <table class="table table-hover">
             @foreach (var item in Model)
             {
                 string recognizedName = getLeaderBoard.getName(item.recognizedId);
@@ -43,12 +37,12 @@
                 string coreValue = item.coreValue.ToString();
                 string date = item.createDate.ToString("MM/dd/yyyy");
                 string comments = recognitionNews.recDetailsComments(item.recognitionId);
-                <tr>
+                <tr class="rec-divider">
                     <td>
                         <strong>@recognizedName</strong> was recognized by <strong>@recognizerName</strong> for displaying our value of <strong>@coreValue</strong> on @date
                     </td>
                     <td>
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#@item.recognitionId">See Comments</button>
+                        <button type="button" class="btn btn-sm btn-comment" data-toggle="modal" data-target="#@item.recognitionId">See Comments</button>
                         <!-- Modal -->
                         <div class="modal fade" id="@item.recognitionId" role="dialog">
                             <div class="modal-dialog modal-sm">
@@ -74,8 +68,8 @@
 </div>
 <div id="leaderBoardTable">
     <div class="col-lg-8 col-lg-offset-2">
-        <h2>Recognition Leaderboard</h2>
-        <table class="table">
+        <h2 class="rec-header">Recognition Leaderboard</h2>
+        <table class="table table-hover">
             <tr>
                 <th>Rank</th>
                 <th>Name</th>
