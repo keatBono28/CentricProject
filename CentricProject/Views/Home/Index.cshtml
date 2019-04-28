@@ -72,13 +72,15 @@
                 List<int> topLeaders = getLeaderBoard.getLeaders();
                 int rank = 0;
             }
-            <h2>Recognition Leaderboard</h2>
-            <table class="table">
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Recognitions</th>
-                </tr>
+            <h2 class="rec-header">Recognition Leaderboard</h2>
+            <table class="table table-hover" style="text-align:center;align-content:center;">
+                <thead style="text-align:center;">
+                    <tr>
+                        <th style="text-align:center;">Rank</th>
+                        <th style="text-align:center;">Name</th>
+                        <th style="text-align:center;">Recognitions</th>
+                    </tr>
+                </thead>
                 @foreach (var item in topLeaders)
                 {
                     rank++;
@@ -90,15 +92,19 @@
                 }
 
             </table>
-            <p></p>
+            <div style="text-align:center;">
+                <p style="align-content:center">
+                    <button class="btn btn-SwitchView" style="text-align:center;" onclick="location.href='@Url.Action("Index","RecognitionModels")'">View Full Leaderboard</button>
+                </p>
+            </div>
         </div>
         <div class="col-md-6">
             @{
                 RecognitionNews recognitionNews = new RecognitionNews();
                 List<int> recentRecs = recognitionNews.getRecentRecs();
             }
-            <h2>Recent Recognition News</h2>
-            <table class="table">
+            <h2 class="rec-header">Recent Recognition News</h2>
+            <table class="table table-hover">
                 @foreach (var item in recentRecs)
                 {
                     <tr>
@@ -112,7 +118,11 @@
                     </tr>
                 }
             </table>
-            <p></p>
+            <div style="text-align:center;">
+                <p>
+                    <button class="btn btn-SwitchView" style="text-align:center;" onclick="location.href='@Url.Action("Index","RecognitionModels")'">View All Recent Recognitions</button>
+                </p>
+            </div>
         </div>
 
     </div>

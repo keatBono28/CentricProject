@@ -1,12 +1,13 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: #fafafa;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -74,7 +75,7 @@ textarea {
     margin-bottom: 5px;
 }
 
-hr {
+hr-about {
     display: block;
     height: 1px;
     border: 0;
@@ -83,7 +84,59 @@ hr {
     padding: 0;
 }
 
+/*Home Page Styling*/
+
+carousel-text {
+    color: #412e5e;
+    font-weight: bold;
+}
 
 
+/*RecognitionModels Index Page*/
 
+.recent-News-Header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #ffb612;
+    color: #412e5e;
+    font-weight: bold;
+    text-align: center;
+    height: 150%;
+    padding: 25px;
+}
+
+.rec-header {
+    color: #412e5e;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
+}
+
+.btn-SwitchView {
+    background-color: #412e5e;
+    color: #ffb612;
+    border: #412e5e;
+    margin-right: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.btn-SwitchView:matches(:hover, :active, :focus) {
+    background-color: #5e4388;
+    color: #412e5e;
+    border: #5e4388;
+}
+
+.btn-comment {
+    background-color: #412e5e;
+    color: #ffb612;
+    border: #412e5e;
+    font-weight: bold;
+}
+
+.btn-comment:matches(:hover, :active, :focus) {
+    background-color: #5e4388;
+    color: #412e5e;
+    border: #5e4388;
+}
 
