@@ -14,15 +14,14 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="btn-group nav">
-                <button type="button" class="btn navbar-btn" style="background-color: #3b3b3b;color:#3b3b3b;" >
+                <button type="button" class="btn navbar-btn">
                     @if (prefName != null)
                     {
-                        @Html.ActionLink("Hello, " + prefName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        @Html.ActionLink("Hello, " + prefName, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" , @class="login-text"})
                     }
                     else
                     {
                         @Html.ActionLink("Hello ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-
                     }
                 </button>
                 <button type="button" class="btn navbar-btn dropdown-toggle" data-toggle="dropdown">

@@ -7,7 +7,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,7 +22,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>   
                     <li>@Html.ActionLink("Recent News", "Index", "RecognitionModels")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -32,48 +30,46 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <!--Building the Footer-->
-        <footer>
-            <div class="container-fluid layout-footer">
-                <div class="footer-social">
-                    <h4><strong>FOLLOW US</strong></h4>
-                    <a href="https://www.facebook.com/Centric/" class="fa fa-facebook"></a>
-                    <a href="https://www.linkedin.com/company/concentric-marketing" class="fa fa-linkedin"></a>
-                    <a href="https://twitter.com/centric" class="fa fa-twitter"></a>
-                </div>
-                <div class="col-md-12" style="margin-top:10px;">
-                    <div class="row">
-                        <div class="col-md-2 col-md-offset-3">
-                            <h4><strong>Centric Corporate</strong></h4>
-                            <p>
-                                1215 Lyons Rd Bldg F
-                                Dayton, OH 45458-1858
-                                888.781.7567
-                            </p>
-                        </div>
-                        <div class="col-md-2">
-                            <h4><strong>Values</strong></h4>
-                            <p>
-                                <a href="@Url.Action("Index","RecognitionModels")" style="color:white;">About Our Values</a><br>
-                                <a href="@Url.Action("Index","ProfileDetails")" style="color:white;">See Recent News</a>
-                            </p>
-                        </div>
-                        <div class="col-md-2">
-                            <h4><strong>Centric Services</strong></h4>
-                            <p>
-                                <a href="https://centricconsulting.com/business-consulting/" target="" style="color:white;">Business Consulting</a>
-                                <a href="https://centricconsulting.com/technology-solutions/" target="" style="color:white;">Technology Services</a>
-                                <a href="https://centricconsulting.com/digital-consulting-services/" target="" style="color:white;">Digital Consulting</a>
-                                <a href="https://centricconsulting.com/industries/" target="" style="color:white;">Industries</a>
-                            </p>
-                        </div>
+    </div>
+    <footer>
+        <div class="container-fluid layout-footer">
+            <div class="footer-social">
+                <h4><strong>FOLLOW US</strong></h4>
+                <a href="https://www.facebook.com/Centric/" class="fa fa-facebook"></a>
+                <a href="https://www.linkedin.com/company/concentric-marketing" class="fa fa-linkedin"></a>
+                <a href="https://twitter.com/centric" class="fa fa-twitter"></a>
+            </div>
+            <div class="col-md-12" style="margin-top:10px;">
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-3">
+                        <h4><strong>Centric Corporate</strong></h4>
+                        <p>
+                            1215 Lyons Rd Bldg F
+                            Dayton, OH 45458-1858
+                            888.781.7567
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <h4><strong>Values</strong></h4>
+                        <p>
+                            <a href="@Url.Action("Index","RecognitionModels")" style="color:white;">About Our Values</a><br>
+                            <a href="@Url.Action("Index","ProfileDetails")" style="color:white;">See Recent News</a>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <h4><strong>Centric Services</strong></h4>
+                        <p>
+                            <a href="https://centricconsulting.com/business-consulting/" target="" style="color:white;">Business Consulting</a>
+                            <a href="https://centricconsulting.com/technology-solutions/" target="" style="color:white;">Technology Services</a>
+                            <a href="https://centricconsulting.com/digital-consulting-services/" target="" style="color:white;">Digital Consulting</a>
+                            <a href="https://centricconsulting.com/industries/" target="" style="color:white;">Industries</a>
+                        </p>
                     </div>
                 </div>
-                <p>&copy; @DateTime.Now.Year - Centric Consulting</p>
             </div>
-            
-        </footer>
-    </div>
+            <p>&copy; @DateTime.Now.Year - Centric Consulting</p>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
