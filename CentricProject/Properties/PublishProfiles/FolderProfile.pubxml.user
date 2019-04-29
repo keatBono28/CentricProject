@@ -25,10 +25,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/28/2019 11:56:58</publishTime>
     </File>
     <File Include="bin/CentricProject.dll">
-      <publishTime>04/28/2019 14:58:14</publishTime>
+      <publishTime>04/28/2019 17:01:29</publishTime>
     </File>
     <File Include="bin/CentricProject.pdb">
-      <publishTime>04/28/2019 14:58:14</publishTime>
+      <publishTime>04/28/2019 17:01:29</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>04/28/2019 11:56:59</publishTime>
@@ -277,7 +277,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/28/2019 11:56:57</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>04/28/2019 14:53:48</publishTime>
+      <publishTime>04/28/2019 16:51:20</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>04/28/2019 11:56:58</publishTime>
@@ -385,7 +385,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/28/2019 11:56:58</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>04/28/2019 13:25:31</publishTime>
+      <publishTime>04/28/2019 16:55:29</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>04/28/2019 11:56:58</publishTime>
@@ -442,7 +442,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/28/2019 11:56:58</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/28/2019 11:56:58</publishTime>
+      <publishTime>04/28/2019 16:21:07</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>04/28/2019 11:56:58</publishTime>

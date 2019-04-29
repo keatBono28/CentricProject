@@ -24,6 +24,46 @@ textarea {
     max-width: 280px;
 }
 
+/* Navigation Bar Changes */
+.navbar-inverse {
+    background-color: #8d819e;
+    border-color: #412e5e;
+    border-radius: 0;
+}
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+    color: #FFF;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #FFF;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    background-color: #412e5e;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #FFF;
+    background-color: #412e5e;
+}
+.navbar-inverse .navbar-text {
+    color: #FFF;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: #412e5e;
+}
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #412e5e;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #FFF;
+}
+
+
+
 /*About page styling*/
 .about-header {
     margin-top: 10px;
