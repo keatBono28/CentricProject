@@ -62,7 +62,15 @@ textarea {
     background-color: #FFF;
 }
 
-
+/*LoginPartial*/
+.login-text, .dropdown-menu > li > a {
+    color: #412e5e;
+    font-weight: bold;
+}
+.login-text li{
+    color: #412e5e;
+    font-weight: bold;
+}
 
 /*About page styling*/
 .about-header {
