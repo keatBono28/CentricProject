@@ -1,42 +1,89 @@
 ﻿@model IEnumerable<CentricProject.Models.RecognitionModel>
-
-
-<table class="table">
-    <tr>
-        <th>
-            Recognizer
-        </th>
-        <th>
-            Recognized Core Value
-
-        </th>
-        <th>
-            Notes
-        </th>
-        <th>
-            Date & Time
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recognizer.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.coreValue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.comments)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.createDate)
-        </td>
-        <td>
-            @Html.ActionLink("View Details", "Details", "RecognitionModels", new { id = item.recognitionId }, null)
-        </td>
-    </tr>
+@using CentricProject.App_Code
+@{ 
+     // Getting Specific Info outside of the models
+    RetreiveEmailAddress retreiveEmailAddress = new RetreiveEmailAddress();
 }
 
+<table class="table table-hover" style="text-align:center;">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <strong>@Html.DisplayFor(modelItem => item.Recognizer.firstName)</strong> recognized you for <strong>@Html.DisplayFor(modelItem => item.coreValue)</strong>!
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-SwitchView" data-toggle="modal" data-target="#@item.recognitionId">View Details</button>
+                <!--Grabbing Data From Database-->
+                @{ 
+                    string email = retreiveEmailAddress.GetEmailAddress(item.recognizerId); 
+                    string position = retreiveEmailAddress.GetPosition(item.recognizerId);
+                }
+                <!-- Modal -->
+                <div class="modal fade" id="@item.recognitionId" role="dialog">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title rec-header">@item.Recognizer.prefferedName Recognized You!</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        @Html.Label("Email: ", new { @class = "col-md-4 control-label" })
+                                                        <div class="col-md-8">
+                                                            @email.ToString()
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        @Html.Label("Position: ", new { @class = "col-md-4 control-label" })
+                                                        <div class="col-md-8">
+                                                            @position.ToString()
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        @Html.Label("Created: ", new { @class = "col-md-4 control-label" })
+                                                        <div class="col-md-8">
+                                                            @Html.DisplayFor(modelItem => item.createDate)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        @Html.Label("Core Value: ", new { @class = "col-md-4 control-label" })
+                                                        <div class="col-md-8">
+                                                            @Html.DisplayFor(modelItem => item.coreValue)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        @Html.Label("Comments: ", new { @class = "col-md-4 control-label" })
+                                                        <div class="col-md-8">
+                                                            @Html.DisplayFor(modelItem => item.comments)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-SwitchView" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
 </table>

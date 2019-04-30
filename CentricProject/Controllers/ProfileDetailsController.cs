@@ -173,7 +173,7 @@ namespace CentricProject.Controllers
                 }
                 db.SaveChanges();
                 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
             return View(profileDetails);
         }

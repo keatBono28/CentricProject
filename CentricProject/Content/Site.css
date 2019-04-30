@@ -230,4 +230,11 @@ carousel-text {
     color: white;
 }
 
+/*Modal Editting*/
+.modal-dialog {
+    width: 800px;
+}
+.modal-sm {
+    width: 400px;
+}
 

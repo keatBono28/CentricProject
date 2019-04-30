@@ -18,30 +18,23 @@
     {
         recs += "s";
     }
-
-
 }
-
-<div class="container">
-    <br />
-    <br />
-</div>
 <div class="container-fluid">
+    <div class="col-lg-12 about-header">
+        <h1>@Html.DisplayFor(model => model.Item1.prefferedName)</h1>
+    </div>
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-6">
-                <div class="col-md-offset-6" style="align-content:center;">
-                    <div class="row">
-                        @Html.DisplayFor(model => model.Item1.prefferedName)
-                    </div>
-                    <div class="row">
+                <div class="col-md-offset-6" style="text-align:center;">
+                    <div class="row" style="margin-top:20px;">
                         <!--This will be the profile image-->
                         <img src="@Url.Action("ProfileImage", "ProfileDetails")" style="width:160px;margin:auto;border-radius:50%;" />
                     </div>
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="col-md-6">
+                <div class="col-md-6" style="margin-top:20px;">
                     <!--This will be the profile details-->
                     <div class="row">
                         <div class="form-group">
@@ -83,14 +76,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6" style="text-align:center;margin-top:20px;">
+                            <p style="align-content:center">
+                                <button class="btn btn-SwitchView" style="text-align:center;" onclick="location.href='@Url.Action("Edit","ProfileDetails", new { id = Model.Item1.id })'">Edit Information</button>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <hr />
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-3">
                 <!--This will be the recs recieved-->
-                <h4>@name.ToString(), you have @count @recs</h4>
+                <h4 class="rec-header">@name.ToString(), you have @count @recs</h4>
                 @if (count > 0)
                 {
                     @Html.Partial("_RecognitionDetails", recognitions.ToList())
