@@ -2,8 +2,6 @@
 @using Microsoft.AspNet.Identity
 @using CentricProject.Models
 @using Microsoft.AspNet.Identity.EntityFramework;
-
-
 @{
     ViewBag.Title = "Profile Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,82 +19,84 @@
         recs += "s";
     }
 }
-<div style="padding-top: 10px;">
-    <img src="@Url.Action("ProfileImage", "ProfileDetails")" style="width:160px;margin:auto;" />
-    @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Item1.id })
-</div>
-<div>
-    <hr />
-    <div class="col-md-6">
-        <h4>@name.ToString(), you have @count @recs</h4>
-        @if (count > 0)
-        {
-            @Html.Partial("_RecognitionDetails", recognitions.ToList())
-        }
+<div class="container-fluid">
+    <div class="col-lg-12 about-header">
+        <h1>@Html.DisplayFor(model => model.Item1.prefferedName)</h1>
     </div>
-    <div class="col-md-6">
-        <dl class="dl-horizontal">
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Item1.firstName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Item1.firstName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Item1.lastName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Item1.lastName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Item1.prefferedName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Item1.prefferedName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Item1.phoneNumber)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Item1.phoneNumber)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Item1.hireDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Item1.hireDate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Item1.businessUnit)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Item1.businessUnit)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Item1.position)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Item1.position)
-            </dd>
-        </dl>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-offset-6" style="text-align:center;">
+                    <div class="row" style="margin-top:20px;">
+                        <!--This will be the profile image-->
+                        <img src="@Url.Action("ProfileImage", "ProfileDetails")" style="width:160px;margin:auto;border-radius:50%;" />
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="col-md-6" style="margin-top:20px;">
+                    <!--This will be the profile details-->
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Name: ", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.DisplayFor(model => model.Item1.firstName) @Html.DisplayFor(model => model.Item1.lastName)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Phone Number: ", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.DisplayFor(model => model.Item1.phoneNumber)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Started Working: ", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.DisplayFor(model => model.Item1.hireDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Business Unit: ", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.DisplayFor(model => model.Item1.businessUnit)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.Label("Position: ", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.DisplayFor(model => model.Item1.position)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="text-align:center;margin-top:20px;">
+                            <p style="align-content:center">
+                                <button class="btn btn-SwitchView" style="text-align:center;" onclick="location.href='@Url.Action("Edit","ProfileDetails", new { id = Model.Item1.id })'">Edit Information</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <!--This will be the recs recieved-->
+                <h4 class="rec-header">@name.ToString(), you have @count @recs</h4>
+                @if (count > 0)
+                {
+                    @Html.Partial("_RecognitionDetails", recognitions.ToList())
+                }
+            </div>
+        </div>
     </div>
-
-    
-
 </div>
-
 

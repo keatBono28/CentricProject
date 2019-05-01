@@ -6,77 +6,95 @@
 }
 
 <!--Display List of Employees... Allow search functionality-->
-<h2>Employees at Centric</h2>
-
-<h4>Want to recoginze someone who is displaying one of our values? Search for them!</h4>
-<div class="form-horizontal">
-    <div class="form-group">
-        <div class="col-md-9">
-            @using (Html.BeginForm("Index", "ProfileDetails", FormMethod.Get))
-            {
-                <p style="color:#9d9d9d">
-                    Search for a coworker: @Html.TextBox("searchString")
-                    <input type="submit" value="Search" />
-                </p>
-            }
+<div class="container-fluid">
+    <div class="col-lg-12 about-header">
+        <h2>Recognize A Coworker!</h2>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2" style="text-align:center;">
+                <h4>Want to recoginze someone who is displaying one of our values?</h4>
+                <h4>Search for them &#8595;</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3" style="text-align:center;">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        @using (Html.BeginForm("Index", "ProfileDetails", FormMethod.Get))
+                        {
+                            <p>@Html.TextBox("searchString")</p>
+                            <p><input class="btn btn-SwitchView" type="submit" value="Search" /></p>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <p style="margin-top:20px;margin-bottom:20px;"></p>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="col-lg-12">
+        <table class="table table-hover">
+            <thead style="text-align:center;">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.firstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.lastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.prefferedName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.phoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.hireDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.businessUnit)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.position)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.firstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.lastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.prefferedName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.phoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hireDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.businessUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.position)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Send A Recognition", "Create", "RecognitionModels", new { id = item.id }, new { @class = "btn btn-sm btn-SwitchView" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.firstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.prefferedName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.phoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hireDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.businessUnit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.position)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.firstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.prefferedName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.hireDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.businessUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.position)
-            </td>
-            <td>
-                @Html.ActionLink("Send A Recognition", "Create","RecognitionModels", new { id = item.id }, null)
-            </td>
-        </tr>
-    }
-
-</table>

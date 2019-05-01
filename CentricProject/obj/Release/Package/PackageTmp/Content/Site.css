@@ -131,17 +131,12 @@ hr-about {
     margin: 1em 0;
     padding: 0;
 }
-
 /*Home Page Styling*/
-
 carousel-text {
     color: #412e5e;
     font-weight: bold;
 }
-
-
 /*RecognitionModels Index Page*/
-
 .recent-News-Header {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -168,25 +163,37 @@ carousel-text {
     margin-left: 20px;
     font-weight: bold;
 }
-
-.btn-SwitchView:matches(:hover, :active, :focus, ::after(2)) {
+.btn-SwitchView:link {
+    background-color: #5e4388;
+    color: #ffb612;
+    border: #5e4388;
+}
+.btn-SwitchView:visited {
+    background-color: #5e4388;
+    color: #ffb612;
+    border: #5e4388;
+}
+.btn-SwitchView:hover {
+    background-color: #5e4388;
+    color: #ffb612;
+    border: #5e4388;
+}
+.btn-SwitchView:active {
+    background-color: #5e4388;
+    color: #ffb612;
+    border: #5e4388;
+}
+.btn-SwitchView:after {
+    background-color: #5e4388;
+    color: #ffb612;
+    border: #5e4388;
+}
+.btn-SwitchView::after(1) {
     background-color: #5e4388;
     color: #ffb612;
     border: #5e4388;
 }
 
-.btn-comment {
-    background-color: #412e5e;
-    color: #ffb612;
-    border: #412e5e;
-    font-weight: bold;
-}
-
-.btn-comment:matches(:hover, :active, :focus, ::after(2)) {
-    background-color: #5e4388;
-    color: #ffb612;
-    border: #5e4388;
-}
 
 /*Footer*/
 
@@ -223,4 +230,11 @@ carousel-text {
     color: white;
 }
 
+/*Modal Editting*/
+.modal-dialog {
+    width: 800px;
+}
+.modal-sm {
+    width: 400px;
+}
 
