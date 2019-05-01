@@ -3,58 +3,68 @@
 @using CentricProject.Models
 @using Microsoft.AspNet.Identity.EntityFramework;
 @using CentricProject.App_Code;
-
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.recognizedId = ViewBag.recognizedId;
     RetreiveEmailAddress retreiveEmailAddress = new RetreiveEmailAddress();
-    TempData["email"] = retreiveEmailAddress.GetEmailAddress(ViewBag.recognizedId); // Get Email Address for Recognizer
+    TempData["email"] = retreiveEmailAddress.GetEmailAddress(ViewBag.recognizedId); 
+    GetLeaderBoard getInfo = new GetLeaderBoard();
+    string name = getInfo.getName(ViewBag.recognizedId);
 }
 
-<h2>Create</h2>
+<div class="container-fluid">
+    <div class="col-lg-12 about-header">
+        <h1>Create a Recognition for @name.ToString()</h1>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-offset-6">
+                    <div class="row" style="margin-top:20px;">
+                        <!--This will be a profile image for the person being recognized-->
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="col-md-6" style="margin-top:20px;">
+                    <!--This will be the create rec portion-->
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="recognizedId" value="@ViewBag.recognizedId" />
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="recognizedId" value="@ViewBag.recognizedId"/>
-
-<div class="form-horizontal">
-    <h4>RecognitionModel</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    
-    
-    <div class="form-group">
-        @Html.LabelFor(model => model.coreValue, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.coreValue, "Select a core value", new { @class = "form-control" })
-            
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.Label("Select a Core Value: ", htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.EnumDropDownListFor(model => model.coreValue, "Select a core value", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Leave a comment: ", htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.comments, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.comments, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-6">
+                                    <p>
+                                        <input type="submit" value="Create" class="btn btn-SwitchView" style="margin-right:10px;" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-lg-2 col-lg-offset-10">
+                        <button class="btn btn-SwitchView" onclick="location.href='@Url.Action("Index","ProfileDetails")'" style="margin-left:10px;">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.comments, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.comments, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.comments, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
-
-<div>
-    @Html.ActionLink("Cancel", "Index","ProfileDetails", null)
 </div>
 
 @section Scripts {

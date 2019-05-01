@@ -25,10 +25,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/01/2019 12:47:37</publishTime>
     </File>
     <File Include="bin/CentricProject.dll">
-      <publishTime>05/01/2019 13:22:35</publishTime>
+      <publishTime>05/01/2019 14:37:55</publishTime>
     </File>
     <File Include="bin/CentricProject.pdb">
-      <publishTime>05/01/2019 13:22:35</publishTime>
+      <publishTime>05/01/2019 14:37:55</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>05/01/2019 12:47:37</publishTime>
@@ -415,7 +415,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/01/2019 12:47:34</publishTime>
     </File>
     <File Include="Views/ProfileDetails/Index.cshtml">
-      <publishTime>05/01/2019 12:47:36</publishTime>
+      <publishTime>05/01/2019 14:33:15</publishTime>
     </File>
     <File Include="Views/ProfileDetails/_RecognitionDetails.cshtml">
       <publishTime>05/01/2019 12:47:34</publishTime>
