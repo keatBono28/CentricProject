@@ -271,6 +271,23 @@ namespace CentricProject.Controllers
             }
         }
         
+        public FileContentResult ModalProfileImage(string userId)
+        {
+            if (userId == null)
+            {
+                string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+                return File(imageData, "image/png");
+            }
+            var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
+            var userImage = bdUsers.Users.Where(x => x.Id == userId).FirstOrDefault();
+            return new FileContentResult(userImage.ProfileDetails.profileImage, "image/png");
+        }
 
 
     }
