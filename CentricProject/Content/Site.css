@@ -88,10 +88,17 @@ textarea {
     color: #ffb612;
     text-align: center;
     box-shadow: 5px 5px #888888;
-    margin: 10px;
+    margin-top: 10px;
+    margin-top: 10px;
     padding-top: 20px;
-    padding-bottom:20px;
+    padding-bottom: 20px;
 }
+
+.values-card:hover,
+.values-card:focus {
+    box-shadow: 10px 10px #000000;
+}
+
 
 #valueHeaders {
     text-decoration:underline;
