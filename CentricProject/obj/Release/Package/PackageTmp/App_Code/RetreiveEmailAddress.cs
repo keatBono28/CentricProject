@@ -70,6 +70,36 @@ namespace CentricProject.App_Code
             }
             return position;
         }
+        public string GetUserId(int id)
+        {
+            string userId = "";
+            string dbConnection = "DefaultConnection";
+            string query = "SELECT Id FROM [AspNetUsers] WHERE ProfileDetails_id = @id";
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.
+            ConnectionStrings[dbConnection].ToString());
+            SqlCommand queryCommand = new SqlCommand(query, sqlConnection);
+            queryCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader dbReader = queryCommand.ExecuteReader();
+                while (dbReader.Read())
+                {
+                    userId = dbReader["Id"].ToString();
+                }
+                dbReader.Close();
+            }
+            catch (Exception exeception)
+            {
+
+            }
+            finally
+            {
+                queryCommand.Dispose();
+                sqlConnection.Close();
+            }
+            return userId;
+        }
 
     }
 }
