@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     RecognitionNews recognitionNews = new RecognitionNews();
     GetLeaderBoard getLeaderBoard = new GetLeaderBoard();
+    RetreiveEmailAddress retreive = new RetreiveEmailAddress();
     List<int> topLeaders = getLeaderBoard.getFullLeaderList();
     int rank = 0;
 }
@@ -29,7 +30,7 @@
 <div id="recentRecsTable">
     <div class="col-lg-10 col-lg-offset-1">
         <h2 class="rec-header">Recently Recognized Employees</h2>
-        <table class="table table-hover">
+        <table class="table table-hover" style="text-align:center;">
             @foreach (var item in Model)
             {
                 string recognizedName = getLeaderBoard.getName(item.recognizedId);
@@ -37,6 +38,8 @@
                 string coreValue = item.coreValue.ToString();
                 string date = item.createDate.ToString("MM/dd/yyyy");
                 string comments = recognitionNews.recDetailsComments(item.recognitionId);
+                string randomString1 = retreive.GetUserId(item.recognizerId);
+                string randomString2 = retreive.GetUserId(item.recognizedId);
                 <tr class="rec-divider">
                     <td>
                         <strong>@recognizedName</strong> was recognized by <strong>@recognizerName</strong> for displaying our value of <strong>@coreValue</strong> on @date
@@ -49,13 +52,52 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Recognition Comments</h4>
+                                        <h4 class="modal-title rec-header">Recognition Details</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p>@comments</p>
+                                        <div class="container-fluid">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="row" style="align-content:center;">
+                                                            <div class="col-md-12" style="align-content:center;">
+                                                                <img src="@Url.Action("ModalProfileImage", "ProfileDetails", new { userId = randomString1 })" style="width:100px;margin:auto;border-radius:50%;" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="text-align:center;">
+                                                            <div class="col-md-12" style="text-align:center;">
+                                                                <h6 class="rec-header">@recognizerName.ToString()</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row" style="text-align:center;">
+                                                            <div class="col-md-12" style="text-align:center;margin-top:25px;margin-left:-5px;">
+                                                                <h6 class="rec-header">Recognized&#8594;</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row" style="align-content:center;">
+                                                            <div class="col-md-12" style="align-content:center;">
+                                                                <img src="@Url.Action("ModalProfileImage", "ProfileDetails", new { userId = randomString2 })" style="width:100px;margin:auto;border-radius:50%;" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="text-align:center;">
+                                                            <div class="col-md-12" style="text-align:center;">
+                                                                <h6 class="rec-header">@recognizedName.ToString()</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="text-align:center;">
+                                                    <h6 class="rec-header">@comments</h6>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-SwitchView" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -67,26 +109,33 @@
     </div>
 </div>
 <div id="leaderBoardTable">
-    <div class="col-lg-8 col-lg-offset-2">
-        <h2 class="rec-header">Recognition Leaderboard</h2>
-        <table class="table table-hover">
-            <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Recognitions</th>
-            </tr>
-            @foreach (var item in topLeaders)
-            {
-                rank++;
-                <tr>
-                    <td>@rank.ToString()</td>
-                    <td>@getLeaderBoard.getName(Convert.ToInt32(item)).ToString()</td>
-                    <td>@getLeaderBoard.getRecCount(Convert.ToInt32(item))</td>
-                </tr>
-            }
-        </table>
-        <p></p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4">
+                <h2 class="rec-header">Recognition Leaderboard</h2>
+                <table class="table table-hover" style="text-align:center;align-content:center;">
+                    <thead style="text-align:center;">
+                        <tr>
+                            <th style="text-align:center;">Rank</th>
+                            <th style="text-align:center;">Name</th>
+                            <th style="text-align:center;">Recognitions</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in topLeaders)
+                    {
+                        rank++;
+                        <tr>
+                            <td>@rank.ToString()</td>
+                            <td>@getLeaderBoard.getName(Convert.ToInt32(item)).ToString()</td>
+                            <td>@getLeaderBoard.getRecCount(Convert.ToInt32(item))</td>
+                        </tr>
+                    }
+                </table>
+                <p></p>
+            </div>
+        </div>
     </div>
+    
 </div>
 
 <div class="container">

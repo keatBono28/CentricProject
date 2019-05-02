@@ -70,7 +70,6 @@ namespace CentricProject.App_Code
             }
             return position;
         }
-
         public string GetUserId(int id)
         {
             string userId = "";
