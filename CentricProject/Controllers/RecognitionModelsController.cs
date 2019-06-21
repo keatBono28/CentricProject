@@ -198,9 +198,9 @@ namespace CentricProject.Controllers
             //var recognizedUser = db.Users.Find();
             // This method will send an email alert to the user if they are recognized.
             SmtpClient myClient = new SmtpClient();
-            myClient.Credentials = new NetworkCredential("kb619814@ohio.edu", "Thecrew28");
+            myClient.Credentials = new NetworkCredential("<EMAIL ADDRESS>", "<PASSWORD>");
             // Build the mail address 
-            MailAddress from = new MailAddress("kb619814@ohio.edu", "System Admin");
+            MailAddress from = new MailAddress("<EMAIL ADDRESS>", "System Admin");
             // Build email message to send
             MailMessage newMessage = new MailMessage();
             newMessage.From = from;
